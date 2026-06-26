@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>이긴자 인증 메일입니다</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+        "Noto Sans KR", system-ui, sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+    }
+
+    .wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 32px 48px;
+    }
+
+    /* 상단 초록 라인 */
+    .top-bar {
+      height: 6px;
+      background-color: #175a4c;
+      margin-bottom: 40px;
+    }
+
+    /* 로고 영역 */
+    .logo-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 56px;
+      margin-top: 4px;
+    }
+
+    .logo-img {
+      height: 36px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    /* 본문 컨텐츠 */
+    .content {
+      margin-top: 8px;
+    }
+
+    .title {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      margin-bottom: 40px;
+    }
+
+    .paragraph {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 4px;
+    }
+
+    .paragraph + .paragraph {
+      margin-top: 0;
+    }
+
+    .paragraph:first-of-type {
+      margin-bottom: 6px;
+    }
+
+    .paragraph:nth-of-type(2) {
+      margin-bottom: 2px;
+    }
+
+    /* 인증번호 박스 */
+    .code-box {
+      margin-top: 40px;
+      margin-bottom: 80px;
+      background-color: #f8f9fa;
+      padding: 32px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .code-number {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #111827;
+    }
+
+    /* 구분선 */
+    .divider {
+      margin-top: 56px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 16px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 600px) {
+      .logo-row {
+        padding: 32px 24px 0;
+        margin-bottom: 32px;
+      }
+
+      .content {
+        padding: 0 24px;
+      }
+
+      .title {
+        font-size: 26px;
+        margin-bottom: 28px;
+      }
+
+      .code-box {
+        padding: 24px;
+        margin-top: 32px;
+        margin-bottom: 60px;
+      }
+
+      .code-number {
+        font-size: 28px;
+      }
+
+      .divider {
+        padding: 20px 24px 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="top-bar"></div>
+
+    <!-- 로고 -->
+    <div class="logo-row">
+      <img src="https://overcomer-dev-bucket.s3.ap-northeast-2.amazonaws.com/_static/img/Logo.png" alt="이긴자 로고" class="logo-img">
+      <div class="logo-text"></div>
+    </div>
+
+    <!-- 본문 -->
+    <div class="content">
+      <h1 class="title">이긴자 인증 메일입니다</h1>
+
+      <p class="paragraph">환영합니다!</p>
+      <p class="paragraph">
+        이메일 인증 절차에 따라 이메일 인증번호를 발급해드립니다.
+      </p>
+      <p class="paragraph">
+        이긴자와 함께 믿음의 여정을 시작해보세요!
+      </p>
+
+      <div class="code-box">
+        <div class="code-number">{{ code }}</div>
+      </div>
+    </div>
+
+    <!-- 하단 안내 -->
+    <div class="divider">
+      <p class="footer-text">
+        본 메일은 발신전용으로 회신되지 않습니다.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

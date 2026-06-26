@@ -1,0 +1,25 @@
+from rest_framework import serializers
+from app.common.validators import validate_serializer_request_user
+from app.{{ app_name }}.models import {{ camel_case_app_name }}
+
+
+class {{ camel_case_app_name }}Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = {{ camel_case_app_name }}
+        fields = [
+            "id",
+        ]
+
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        request_user = validate_serializer_request_user(self, attrs)
+        attrs["user"] = request_user
+        return attrs
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        return instance
+
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        return instance

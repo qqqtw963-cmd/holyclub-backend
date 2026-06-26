@@ -1,0 +1,7059 @@
+openapi: 3.0.3
+info:
+  title: overcomer API
+  version: 1.0.0
+  description: test
+paths:
+  /cron/user_push_settings/:
+    post:
+      operationId: cron_user_push_settings_create
+      tags:
+      - cron
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: No response body
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/bible/{me}/:
+    get:
+      operationId: bible_retrieve
+      summary: 성경 상세 조회
+      parameters:
+      - in: path
+        name: me
+        schema:
+          type: string
+          pattern: ^me$
+        required: true
+      tags:
+      - bible
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bible'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/bible_highlight/:
+    get:
+      operationId: bible_highlight_list
+      summary: 성경 하이라이트 목록 조회
+      parameters:
+      - in: query
+        name: book
+        schema:
+          type: string
+          x-spec-enum-id: 3a3e0973a194e417
+          title: 성경
+          x-enumNames:
+          - 역대상
+          - 고린도전서
+          - 요한일서
+          - 열왕기상
+          - 베드로전서
+          - 사무엘상
+          - 데살로니가전서
+          - 디모데전서
+          - 역대하
+          - 고린도후서
+          - 요한이서
+          - 열왕기하
+          - 베드로후서
+          - 사무엘하
+          - 데살로니가후서
+          - 디모데후서
+          - 요한삼서
+          - 사도행전
+          - 아모스
+          - 골로새서
+          - 다니엘
+          - 신명기
+          - 전도서
+          - 에베소서
+          - 에스더
+          - 출애굽기
+          - 에스겔
+          - 에스라
+          - 갈라디아서
+          - 창세기
+          - 하박국
+          - 학개
+          - 히브리서
+          - 호세아
+          - 이사야
+          - 야고보서
+          - 예레미야
+          - 욥기
+          - 요엘
+          - 요한복음
+          - 요나
+          - 여호수아
+          - 유다서
+          - 사사기
+          - 예레미야애가
+          - 레위기
+          - 누가복음
+          - 말라기
+          - 마가복음
+          - 마태복음
+          - 미가
+          - 나훔
+          - 느헤미야
+          - 민수기
+          - 오바댜
+          - 빌레몬서
+          - 빌립보서
+          - 잠언
+          - 시편
+          - 요한계시록
+          - 로마서
+          - 룻기
+          - 아가
+          - 디도서
+          - 스가랴
+          - 스바냐
+          enum:
+          - 1_CHRONICLES
+          - 1_CORINTHIANS
+          - 1_JOHN
+          - 1_KINGS
+          - 1_PETER
+          - 1_SAMUEL
+          - 1_THESSALONIANS
+          - 1_TIMOTHY
+          - 2_CHRONICLES
+          - 2_CORINTHIANS
+          - 2_JOHN
+          - 2_KINGS
+          - 2_PETER
+          - 2_SAMUEL
+          - 2_THESSALONIANS
+          - 2_TIMOTHY
+          - 3_JOHN
+          - ACTS
+          - AMOS
+          - COLOSSIANS
+          - DANIEL
+          - DEUTERONOMY
+          - ECCLESIASTES
+          - EPHESIANS
+          - ESTHER
+          - EXODUS
+          - EZEKIEL
+          - EZRA
+          - GALATIANS
+          - GENESIS
+          - HABAKKUK
+          - HAGGAI
+          - HEBREWS
+          - HOSEA
+          - ISAIAH
+          - JAMES
+          - JEREMIAH
+          - JOB
+          - JOEL
+          - JOHN
+          - JONAH
+          - JOSHUA
+          - JUDE
+          - JUDGES
+          - LAMENTATIONS
+          - LEVITICUS
+          - LUKE
+          - MALACHI
+          - MARK
+          - MATTHEW
+          - MICAH
+          - NAHUM
+          - NEHEMIAH
+          - NUMBERS
+          - OBADIAH
+          - PHILEMON
+          - PHILIPPIANS
+          - PROVERBS
+          - PSALMS
+          - REVELATION
+          - ROMANS
+          - RUTH
+          - SONG_OF_SONGS
+          - TITUS
+          - ZECHARIAH
+          - ZEPHANIAH
+        description: |-
+          * `GENESIS` - 창세기
+          * `EXODUS` - 출애굽기
+          * `LEVITICUS` - 레위기
+          * `NUMBERS` - 민수기
+          * `DEUTERONOMY` - 신명기
+          * `JOSHUA` - 여호수아
+          * `JUDGES` - 사사기
+          * `RUTH` - 룻기
+          * `1_SAMUEL` - 사무엘상
+          * `2_SAMUEL` - 사무엘하
+          * `1_KINGS` - 열왕기상
+          * `2_KINGS` - 열왕기하
+          * `1_CHRONICLES` - 역대상
+          * `2_CHRONICLES` - 역대하
+          * `EZRA` - 에스라
+          * `NEHEMIAH` - 느헤미야
+          * `ESTHER` - 에스더
+          * `JOB` - 욥기
+          * `PSALMS` - 시편
+          * `PROVERBS` - 잠언
+          * `ECCLESIASTES` - 전도서
+          * `SONG_OF_SONGS` - 아가
+          * `ISAIAH` - 이사야
+          * `JEREMIAH` - 예레미야
+          * `LAMENTATIONS` - 예레미야애가
+          * `EZEKIEL` - 에스겔
+          * `DANIEL` - 다니엘
+          * `HOSEA` - 호세아
+          * `JOEL` - 요엘
+          * `AMOS` - 아모스
+          * `OBADIAH` - 오바댜
+          * `JONAH` - 요나
+          * `MICAH` - 미가
+          * `NAHUM` - 나훔
+          * `HABAKKUK` - 하박국
+          * `ZEPHANIAH` - 스바냐
+          * `HAGGAI` - 학개
+          * `ZECHARIAH` - 스가랴
+          * `MALACHI` - 말라기
+          * `MATTHEW` - 마태복음
+          * `MARK` - 마가복음
+          * `LUKE` - 누가복음
+          * `JOHN` - 요한복음
+          * `ACTS` - 사도행전
+          * `ROMANS` - 로마서
+          * `1_CORINTHIANS` - 고린도전서
+          * `2_CORINTHIANS` - 고린도후서
+          * `GALATIANS` - 갈라디아서
+          * `EPHESIANS` - 에베소서
+          * `PHILIPPIANS` - 빌립보서
+          * `COLOSSIANS` - 골로새서
+          * `1_THESSALONIANS` - 데살로니가전서
+          * `2_THESSALONIANS` - 데살로니가후서
+          * `1_TIMOTHY` - 디모데전서
+          * `2_TIMOTHY` - 디모데후서
+          * `TITUS` - 디도서
+          * `PHILEMON` - 빌레몬서
+          * `HEBREWS` - 히브리서
+          * `JAMES` - 야고보서
+          * `1_PETER` - 베드로전서
+          * `2_PETER` - 베드로후서
+          * `1_JOHN` - 요한일서
+          * `2_JOHN` - 요한이서
+          * `3_JOHN` - 요한삼서
+          * `JUDE` - 유다서
+          * `REVELATION` - 요한계시록
+      - in: query
+        name: chapter
+        schema:
+          type: integer
+      - name: cursor
+        required: false
+        in: query
+        description: The pagination cursor value.
+        schema:
+          type: string
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - bible_highlight
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBibleHighlightList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    post:
+      operationId: bible_highlight_create
+      summary: 성경 하이라이트 등록
+      tags:
+      - bible_highlight
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BibleHighlightRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BibleHighlightRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BibleHighlightRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibleHighlight'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibleHighlightErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/bible_highlight/{id}/:
+    delete:
+      operationId: bible_highlight_destroy
+      summary: 성경 하이라이트 삭제
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 성경 하이라이트.
+        required: true
+      tags:
+      - bible_highlight
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: No response body
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/bible_reading_log/:
+    get:
+      operationId: bible_reading_log_list
+      description: 성경 읽기 기록 목록 조회
+      summary: (데일리)성경 읽기 기록 목록 조회
+      parameters:
+      - in: query
+        name: local_datetime
+        schema:
+          type: string
+        description: '사용자 디바이스의 현재 시간 (ISO8601 형식, 예: 2024-01-15T14:30:00+09:00)'
+        required: true
+      - name: cursor
+        required: false
+        in: query
+        description: The pagination cursor value.
+        schema:
+          type: string
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - bible_reading_log
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBibleReadingLogListList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    post:
+      operationId: bible_reading_log_create
+      summary: (데일리)성경 읽기 기록 등록
+      tags:
+      - bible_reading_log
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BibleReadingLogRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BibleReadingLogRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BibleReadingLogRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibleReadingLog'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibleReadingLogErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/bible_reading_status/:
+    get:
+      operationId: bible_reading_status_list
+      summary: 성경 읽은 상태 목록 조회
+      parameters:
+      - in: query
+        name: book
+        schema:
+          type: string
+          x-spec-enum-id: 3a3e0973a194e417
+          title: 성경
+          x-enumNames:
+          - 역대상
+          - 고린도전서
+          - 요한일서
+          - 열왕기상
+          - 베드로전서
+          - 사무엘상
+          - 데살로니가전서
+          - 디모데전서
+          - 역대하
+          - 고린도후서
+          - 요한이서
+          - 열왕기하
+          - 베드로후서
+          - 사무엘하
+          - 데살로니가후서
+          - 디모데후서
+          - 요한삼서
+          - 사도행전
+          - 아모스
+          - 골로새서
+          - 다니엘
+          - 신명기
+          - 전도서
+          - 에베소서
+          - 에스더
+          - 출애굽기
+          - 에스겔
+          - 에스라
+          - 갈라디아서
+          - 창세기
+          - 하박국
+          - 학개
+          - 히브리서
+          - 호세아
+          - 이사야
+          - 야고보서
+          - 예레미야
+          - 욥기
+          - 요엘
+          - 요한복음
+          - 요나
+          - 여호수아
+          - 유다서
+          - 사사기
+          - 예레미야애가
+          - 레위기
+          - 누가복음
+          - 말라기
+          - 마가복음
+          - 마태복음
+          - 미가
+          - 나훔
+          - 느헤미야
+          - 민수기
+          - 오바댜
+          - 빌레몬서
+          - 빌립보서
+          - 잠언
+          - 시편
+          - 요한계시록
+          - 로마서
+          - 룻기
+          - 아가
+          - 디도서
+          - 스가랴
+          - 스바냐
+          enum:
+          - 1_CHRONICLES
+          - 1_CORINTHIANS
+          - 1_JOHN
+          - 1_KINGS
+          - 1_PETER
+          - 1_SAMUEL
+          - 1_THESSALONIANS
+          - 1_TIMOTHY
+          - 2_CHRONICLES
+          - 2_CORINTHIANS
+          - 2_JOHN
+          - 2_KINGS
+          - 2_PETER
+          - 2_SAMUEL
+          - 2_THESSALONIANS
+          - 2_TIMOTHY
+          - 3_JOHN
+          - ACTS
+          - AMOS
+          - COLOSSIANS
+          - DANIEL
+          - DEUTERONOMY
+          - ECCLESIASTES
+          - EPHESIANS
+          - ESTHER
+          - EXODUS
+          - EZEKIEL
+          - EZRA
+          - GALATIANS
+          - GENESIS
+          - HABAKKUK
+          - HAGGAI
+          - HEBREWS
+          - HOSEA
+          - ISAIAH
+          - JAMES
+          - JEREMIAH
+          - JOB
+          - JOEL
+          - JOHN
+          - JONAH
+          - JOSHUA
+          - JUDE
+          - JUDGES
+          - LAMENTATIONS
+          - LEVITICUS
+          - LUKE
+          - MALACHI
+          - MARK
+          - MATTHEW
+          - MICAH
+          - NAHUM
+          - NEHEMIAH
+          - NUMBERS
+          - OBADIAH
+          - PHILEMON
+          - PHILIPPIANS
+          - PROVERBS
+          - PSALMS
+          - REVELATION
+          - ROMANS
+          - RUTH
+          - SONG_OF_SONGS
+          - TITUS
+          - ZECHARIAH
+          - ZEPHANIAH
+        description: |-
+          * `GENESIS` - 창세기
+          * `EXODUS` - 출애굽기
+          * `LEVITICUS` - 레위기
+          * `NUMBERS` - 민수기
+          * `DEUTERONOMY` - 신명기
+          * `JOSHUA` - 여호수아
+          * `JUDGES` - 사사기
+          * `RUTH` - 룻기
+          * `1_SAMUEL` - 사무엘상
+          * `2_SAMUEL` - 사무엘하
+          * `1_KINGS` - 열왕기상
+          * `2_KINGS` - 열왕기하
+          * `1_CHRONICLES` - 역대상
+          * `2_CHRONICLES` - 역대하
+          * `EZRA` - 에스라
+          * `NEHEMIAH` - 느헤미야
+          * `ESTHER` - 에스더
+          * `JOB` - 욥기
+          * `PSALMS` - 시편
+          * `PROVERBS` - 잠언
+          * `ECCLESIASTES` - 전도서
+          * `SONG_OF_SONGS` - 아가
+          * `ISAIAH` - 이사야
+          * `JEREMIAH` - 예레미야
+          * `LAMENTATIONS` - 예레미야애가
+          * `EZEKIEL` - 에스겔
+          * `DANIEL` - 다니엘
+          * `HOSEA` - 호세아
+          * `JOEL` - 요엘
+          * `AMOS` - 아모스
+          * `OBADIAH` - 오바댜
+          * `JONAH` - 요나
+          * `MICAH` - 미가
+          * `NAHUM` - 나훔
+          * `HABAKKUK` - 하박국
+          * `ZEPHANIAH` - 스바냐
+          * `HAGGAI` - 학개
+          * `ZECHARIAH` - 스가랴
+          * `MALACHI` - 말라기
+          * `MATTHEW` - 마태복음
+          * `MARK` - 마가복음
+          * `LUKE` - 누가복음
+          * `JOHN` - 요한복음
+          * `ACTS` - 사도행전
+          * `ROMANS` - 로마서
+          * `1_CORINTHIANS` - 고린도전서
+          * `2_CORINTHIANS` - 고린도후서
+          * `GALATIANS` - 갈라디아서
+          * `EPHESIANS` - 에베소서
+          * `PHILIPPIANS` - 빌립보서
+          * `COLOSSIANS` - 골로새서
+          * `1_THESSALONIANS` - 데살로니가전서
+          * `2_THESSALONIANS` - 데살로니가후서
+          * `1_TIMOTHY` - 디모데전서
+          * `2_TIMOTHY` - 디모데후서
+          * `TITUS` - 디도서
+          * `PHILEMON` - 빌레몬서
+          * `HEBREWS` - 히브리서
+          * `JAMES` - 야고보서
+          * `1_PETER` - 베드로전서
+          * `2_PETER` - 베드로후서
+          * `1_JOHN` - 요한일서
+          * `2_JOHN` - 요한이서
+          * `3_JOHN` - 요한삼서
+          * `JUDE` - 유다서
+          * `REVELATION` - 요한계시록
+      - in: query
+        name: chapter
+        schema:
+          type: integer
+      - name: cursor
+        required: false
+        in: query
+        description: The pagination cursor value.
+        schema:
+          type: string
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - bible_reading_status
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBibleReadingStatusList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    post:
+      operationId: bible_reading_status_create
+      summary: 읽은 성경 등록(계속 등록 가능)
+      tags:
+      - bible_reading_status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BibleReadingStatusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BibleReadingStatusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BibleReadingStatusRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibleReadingStatus'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibleReadingStatusErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/bible_reading_status/{id}/:
+    get:
+      operationId: bible_reading_status_retrieve
+      summary: 성경 읽은 상태 상세 조회
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 성경 읽기 상태.
+        required: true
+      tags:
+      - bible_reading_status
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BibleReadingStatus'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/daily_check_status/:
+    get:
+      operationId: daily_check_status_list
+      summary: (예배/산상수훈) 매일 체크 상태 목록 조회 (사용X)
+      tags:
+      - daily_check_status
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyCheckStatus'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    post:
+      operationId: daily_check_status_create
+      summary: (예배/산상수훈) 매일 체크 상태 등록 (on/off)
+      tags:
+      - daily_check_status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyCheckStatusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DailyCheckStatusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DailyCheckStatusRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyCheckStatus'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyCheckStatusErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/dash_board/daily/:
+    get:
+      operationId: dash_board_daily_retrieve
+      summary: 일별 집계
+      parameters:
+      - in: query
+        name: date
+        schema:
+          type: string
+        description: 조회 날짜 (YYYY-MM-DD)
+        required: true
+      tags:
+      - dash_board
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyDashboardResponse'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/dash_board/weekly/:
+    get:
+      operationId: dash_board_weekly_retrieve
+      summary: 주별 평균
+      parameters:
+      - in: query
+        name: date
+        schema:
+          type: string
+        description: 조회 날짜 (YYYY-MM-DD)
+        required: true
+      tags:
+      - dash_board
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeklyDashboardResponse'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/groups/:
+    post:
+      operationId: groups_create
+      summary: 그룹 생성 신청
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupCreateRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupCreateResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupCreateErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/groups/join/:
+    post:
+      operationId: groups_join_create
+      summary: 초대 코드로 그룹 가입
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupJoinRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupJoinRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupJoinRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupJoinResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupJoinErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/groups/mine/:
+    get:
+      operationId: groups_mine_list
+      summary: 내가 속한 그룹 목록
+      tags:
+      - groups
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupMine'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/groups/{id}/:
+    get:
+      operationId: groups_retrieve
+      summary: 그룹 상세 조회
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 그룹.
+        required: true
+      tags:
+      - groups
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDetail'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/groups/{id}/dashboard/:
+    get:
+      operationId: groups_dashboard_retrieve
+      summary: 그룹 대시보드
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 그룹.
+        required: true
+      tags:
+      - groups
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupDashboardResponse'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/groups/{id}/invites/:
+    post:
+      operationId: groups_invites_create
+      summary: 초대 코드 생성
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 그룹.
+        required: true
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupInviteCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupInviteCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupInviteCreateRequest'
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupInviteCreate'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupInviteCreateErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/groups/{id}/leave/:
+    delete:
+      operationId: groups_leave_destroy
+      summary: 그룹 탈퇴
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 그룹.
+        required: true
+      tags:
+      - groups
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupLeaveResponse'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/inquiry/:
+    post:
+      operationId: inquiry_create
+      summary: 문의하기 등록
+      tags:
+      - inquiry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InquiryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InquiryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InquiryRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inquiry'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquiryErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/mortification_of_sin/:
+    post:
+      operationId: mortification_of_sin_create
+      summary: (오늘의) 죄와의 싸움 점수 등록/재등록
+      tags:
+      - mortification_of_sin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MortificationOfSinRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MortificationOfSinRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MortificationOfSinRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MortificationOfSin'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MortificationOfSinErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/mortification_of_sin/weekly/:
+    post:
+      operationId: mortification_of_sin_weekly_create
+      description: 등록만 가능, 수정/삭제 불가능
+      summary: (해당 주간) 죄와의 싸움 등록
+      tags:
+      - mortification_of_sin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeeklyMortificationOfSinRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WeeklyMortificationOfSinRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WeeklyMortificationOfSinRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeklyMortificationOfSin'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeklyMortificationOfSinErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/notification/:
+    get:
+      operationId: notification_list
+      summary: 공지사항 목록 조회
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - notification
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedNotificationList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/notification/{id}/:
+    get:
+      operationId: notification_retrieve
+      summary: 공지사항 상세 조회
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 공지사항.
+        required: true
+      tags:
+      - notification
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/pray_time_log/:
+    get:
+      operationId: pray_time_log_list
+      summary: (하루의) 기도 시간 목록 조회
+      parameters:
+      - in: query
+        name: local_datetime
+        schema:
+          type: string
+        description: '사용자 디바이스의 현재 시간 (ISO8601 형식, 예: 2024-01-15T14:30:00+09:00)'
+        required: true
+      - name: cursor
+        required: false
+        in: query
+        description: The pagination cursor value.
+        schema:
+          type: string
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - pray_time_log
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPrayTimeLogList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    post:
+      operationId: pray_time_log_create
+      summary: (하루의) 기도 시간 등록
+      tags:
+      - pray_time_log
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrayTimeLogRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PrayTimeLogRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PrayTimeLogRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayTimeLog'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayTimeLogErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/pray_time_log/{id}/:
+    delete:
+      operationId: pray_time_log_destroy
+      summary: (하루의) 기도 시간 삭제
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 기도 시간 기록.
+        required: true
+      tags:
+      - pray_time_log
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: No response body
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/prayer_bgm_track/:
+    get:
+      operationId: prayer_bgm_track_list
+      summary: 기도용 BGM 목록 조회
+      parameters:
+      - name: cursor
+        required: false
+        in: query
+        description: The pagination cursor value.
+        schema:
+          type: string
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - prayer_bgm_track
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPrayerBgmTrackList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/prayer_journal/:
+    get:
+      operationId: prayer_journal_list
+      summary: 기도제목 목록 조회
+      parameters:
+      - in: query
+        name: is_answered
+        schema:
+          type: boolean
+      - name: cursor
+        required: false
+        in: query
+        description: The pagination cursor value.
+        schema:
+          type: string
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - prayer_journal
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPrayerJournalListList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    post:
+      operationId: prayer_journal_create
+      summary: 기도제목 등록
+      tags:
+      - prayer_journal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrayerJournalCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PrayerJournalCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PrayerJournalCreateRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerJournal'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerJournalCreateErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/prayer_journal/{id}/:
+    get:
+      operationId: prayer_journal_retrieve
+      summary: 기도제목 상세 조회
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 기도 제목.
+        required: true
+      tags:
+      - prayer_journal
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerJournal'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    put:
+      operationId: prayer_journal_update
+      summary: 기도제목 수정
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 기도 제목.
+        required: true
+      tags:
+      - prayer_journal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrayerJournalUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PrayerJournalUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PrayerJournalUpdateRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerJournal'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerJournalUpdateErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    delete:
+      operationId: prayer_journal_destroy
+      summary: 기도제목 삭제
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 기도 제목.
+        required: true
+      tags:
+      - prayer_journal
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: No response body
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/prayer_journal/{id}/answered/:
+    post:
+      operationId: prayer_journal_answered_create
+      summary: 기도제목 응답 여부
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 기도 제목.
+        required: true
+      tags:
+      - prayer_journal
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerJournalAnswered'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerJournalAnsweredErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/presigned_url/:
+    post:
+      operationId: presigned_url_create
+      description: |2
+
+        ![file_upload_flow](/static/docs/file_upload_flow.png)
+        * 플로우 1, 2를 input onChange 핸들러에서 실행해야합니다.
+        1. 미시 서명된 URL 발급
+        2. 미리 서명된 URL로 파일 업로드
+            - method: `POST`
+            - url: `url` (1에서 발급받은 url)
+            - form-data: { ...fields, 'Content-Type': '{file.type}/' }
+      summary: 미리 서명된 URL 발급
+      tags:
+      - presigned_url
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PresignedRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PresignedRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PresignedRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Presigned'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignedErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/privacy_policy/current/:
+    get:
+      operationId: privacy_policy_current_retrieve
+      summary: 현재의 유효한 개인정보처리방침 조회
+      tags:
+      - privacy_policy
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivacyPolicy'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/screen_time/:
+    post:
+      operationId: screen_time_create
+      summary: 스크린타임 수동 입력 (upsert)
+      tags:
+      - screen_time
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyScreenTimeLogRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DailyScreenTimeLogRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DailyScreenTimeLogRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyScreenTimeLog'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyScreenTimeLogErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/sermon/:
+    get:
+      operationId: sermon_list
+      summary: 설교 목록 조회
+      parameters:
+      - in: query
+        name: worship_type
+        schema:
+          type: string
+          x-spec-enum-id: 43a4c097293a93e4
+          title: 예배 종류
+          x-enumNames:
+          - 철야
+          - 주일
+          enum:
+          - overnight
+          - sunday
+        description: |-
+          북마크 필터링을 위해 선택값으로 둠
+
+          * `sunday` - 주일
+          * `overnight` - 철야
+      - in: query
+        name: sunday_preacher
+        schema:
+          type: integer
+      - in: query
+        name: overnight_worship_type
+        schema:
+          type: string
+          x-spec-enum-id: d1b2c38d1464583a
+          nullable: true
+          title: 철야예배 종류
+          x-enumNames:
+          - 금요집회
+          - 목요집회
+          enum:
+          - friday_night
+          - thursday_night
+        description: |-
+          * `friday_night` - 금요집회
+          * `thursday_night` - 목요집회
+      - in: query
+        name: is_bookmarked
+        schema:
+          type: boolean
+      - name: cursor
+        required: false
+        in: query
+        description: The pagination cursor value.
+        schema:
+          type: string
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - sermon
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSermonList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/sermon/{id}/:
+    get:
+      operationId: sermon_retrieve
+      summary: 설교 상세 조회
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 설교.
+        required: true
+      tags:
+      - sermon
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sermon'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/sermon/{id}/bookmark/:
+    post:
+      operationId: sermon_bookmark_create
+      summary: 설교 북마크 (on/off)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 설교.
+        required: true
+      tags:
+      - sermon
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SermonBookmark'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SermonBookmarkErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/sermon/{id}/watch/:
+    post:
+      operationId: sermon_watch_create
+      summary: 설교 시청 (on/off)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 설교.
+        required: true
+      tags:
+      - sermon
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SermonWatch'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SermonWatchErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/spiritual_discipline/:
+    post:
+      operationId: spiritual_discipline_create
+      summary: (오늘의) 경건의 습관 on/off
+      tags:
+      - spiritual_discipline
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpiritualDisciplineRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpiritualDisciplineRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpiritualDisciplineRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpiritualDiscipline'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpiritualDisciplineErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/spiritual_discipline/weekly/:
+    post:
+      operationId: spiritual_discipline_weekly_create
+      description: 등록만 가능, 수정/삭제 불가능
+      summary: (해당 주간) 경건의 습관 등록
+      tags:
+      - spiritual_discipline
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeeklySpiritualDisciplineRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WeeklySpiritualDisciplineRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WeeklySpiritualDisciplineRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeklySpiritualDiscipline'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeeklySpiritualDisciplineErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/terms_of_service/current/:
+    get:
+      operationId: terms_of_service_current_retrieve
+      summary: 현재의 유효한 이용약관 조회
+      tags:
+      - terms_of_service
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TermsOfService'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/testimony_journal/:
+    get:
+      operationId: testimony_journal_list
+      summary: 고백록 목록 조회
+      parameters:
+      - in: query
+        name: created_at
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: search
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - testimony_journal
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTestimonyJournalList'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    post:
+      operationId: testimony_journal_create
+      summary: 고백록 등록
+      tags:
+      - testimony_journal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestimonyJournalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TestimonyJournalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TestimonyJournalRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimonyJournal'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimonyJournalErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/testimony_journal/{id}/:
+    get:
+      operationId: testimony_journal_retrieve
+      summary: 고백록 상세 조회
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 고백록.
+        required: true
+      tags:
+      - testimony_journal
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimonyJournal'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    put:
+      operationId: testimony_journal_update
+      summary: 고백록 수정
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 고백록.
+        required: true
+      tags:
+      - testimony_journal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestimonyJournalRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TestimonyJournalRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TestimonyJournalRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimonyJournal'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimonyJournalErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    delete:
+      operationId: testimony_journal_destroy
+      summary: 고백록 삭제
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this 고백록.
+        required: true
+      tags:
+      - testimony_journal
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: No response body
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/user/auth/email/:
+    post:
+      operationId: user_auth_email_create
+      summary: 최초 authorization 회원 정보 입력
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserEmailAuthRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserEmailAuthRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserEmailAuthRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEmailAuth'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEmailAuthErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/user/auth/social/:
+    post:
+      operationId: user_auth_social_create
+      summary: 유저 소셜 로그인
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSocialAuthRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserSocialAuthRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserSocialAuthRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSocialAuth'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSocialLoginValidationError'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/user/logout/:
+    post:
+      operationId: user_logout_create
+      description: 모바일앱에서만 사용하며, 유저와 디바이스 토큰의 연결을 끊어주기위해 사용합니다.
+      summary: 유저 로그아웃 (사용X)
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogoutRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserLogoutRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserLogoutRequest'
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLogout'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLogoutErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/user/push_setting/:
+    post:
+      operationId: user_push_setting_create
+      summary: 유저 푸시 알림 설정
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPushSettingsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserPushSettingsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserPushSettingsRequest'
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPushSettings'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPushSettingsErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/user/refresh/:
+    post:
+      operationId: user_refresh_create
+      summary: 유저 리프레시
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRefreshRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRefresh'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRefreshErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/user/register/:
+    post:
+      operationId: user_register_create
+      summary: 최초 authorization 회원 정보 입력
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegister'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegisterErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/user/{id}/:
+    get:
+      operationId: user_retrieve
+      summary: 유저 조회
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          pattern: ^me$
+        required: true
+      - in: query
+        name: local_datetime
+        schema:
+          type: string
+        description: '사용자 디바이스의 현재 시간 (ISO8601 형식, 예: 2024-01-15T14:30:00+09:00)'
+      tags:
+      - user
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    put:
+      operationId: user_update
+      description: 이름, 핸드폰 번호는 수정 불가능
+      summary: 유저 정보 수정
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          pattern: ^me$
+        required: true
+      tags:
+      - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+    delete:
+      operationId: user_destroy
+      description: 유저 삭제(탈퇴) 시 withdrawal_user에 데이터를 백업한 후 삭제
+      summary: 유저 삭제(탈퇴)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          pattern: ^me$
+        required: true
+      tags:
+      - user
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: No response body
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/verifier/email/:
+    post:
+      operationId: verifier_email_create
+      description: |-
+        이메일 검증 메일 발송
+        ---
+        email_verification
+      tags:
+      - verifier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailVerificationSendRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmailVerificationSendRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmailVerificationSendRequest'
+        required: true
+      security:
+      - Bearer: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailVerificationSend'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailVerificationSendErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/verifier/phone/:
+    post:
+      operationId: verifier_phone_create
+      description: |-
+        휴대폰 인증
+        ---
+      tags:
+      - verifier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifierPhoneRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifierPhoneRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifierPhoneRequest'
+        required: true
+      security:
+      - Bearer: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifierPhone'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifierPhoneErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+  /v1/verifier/phone/confirm/:
+    post:
+      operationId: verifier_phone_confirm_create
+      description: |-
+        휴대폰 인증 확인
+        ---
+        항상 허용되는 인증코드 : 000000
+      tags:
+      - verifier
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifierPhoneConfirmRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifierPhoneConfirmRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifierPhoneConfirmRequest'
+        required: true
+      security:
+      - Bearer: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifierPhoneConfirm'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifierPhoneConfirmErrorMessage'
+          description: ''
+        401:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonError'
+          description: ''
+components:
+  schemas:
+    Bible:
+      type: object
+      properties:
+        data:
+          type: string
+          format: uri
+          title: 데이터
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 수정일시
+        versionSet:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibleVersion'
+          title: 버전
+      required:
+      - data
+      - updatedAt
+      - versionSet
+    BibleHighlight:
+      type: object
+      description: |-
+        이미 객체가 존재해도 동일하게 post로 요청하면 됨 (색상 변경됨)
+        sorting: verse의 오름차순 (책/장: 필터링 필수값)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        book:
+          enum:
+          - 1_CHRONICLES
+          - 1_CORINTHIANS
+          - 1_JOHN
+          - 1_KINGS
+          - 1_PETER
+          - 1_SAMUEL
+          - 1_THESSALONIANS
+          - 1_TIMOTHY
+          - 2_CHRONICLES
+          - 2_CORINTHIANS
+          - 2_JOHN
+          - 2_KINGS
+          - 2_PETER
+          - 2_SAMUEL
+          - 2_THESSALONIANS
+          - 2_TIMOTHY
+          - 3_JOHN
+          - ACTS
+          - AMOS
+          - COLOSSIANS
+          - DANIEL
+          - DEUTERONOMY
+          - ECCLESIASTES
+          - EPHESIANS
+          - ESTHER
+          - EXODUS
+          - EZEKIEL
+          - EZRA
+          - GALATIANS
+          - GENESIS
+          - HABAKKUK
+          - HAGGAI
+          - HEBREWS
+          - HOSEA
+          - ISAIAH
+          - JAMES
+          - JEREMIAH
+          - JOB
+          - JOEL
+          - JOHN
+          - JONAH
+          - JOSHUA
+          - JUDE
+          - JUDGES
+          - LAMENTATIONS
+          - LEVITICUS
+          - LUKE
+          - MALACHI
+          - MARK
+          - MATTHEW
+          - MICAH
+          - NAHUM
+          - NEHEMIAH
+          - NUMBERS
+          - OBADIAH
+          - PHILEMON
+          - PHILIPPIANS
+          - PROVERBS
+          - PSALMS
+          - REVELATION
+          - ROMANS
+          - RUTH
+          - SONG_OF_SONGS
+          - TITUS
+          - ZECHARIAH
+          - ZEPHANIAH
+          type: string
+          description: |-
+            * `GENESIS` - 창세기
+            * `EXODUS` - 출애굽기
+            * `LEVITICUS` - 레위기
+            * `NUMBERS` - 민수기
+            * `DEUTERONOMY` - 신명기
+            * `JOSHUA` - 여호수아
+            * `JUDGES` - 사사기
+            * `RUTH` - 룻기
+            * `1_SAMUEL` - 사무엘상
+            * `2_SAMUEL` - 사무엘하
+            * `1_KINGS` - 열왕기상
+            * `2_KINGS` - 열왕기하
+            * `1_CHRONICLES` - 역대상
+            * `2_CHRONICLES` - 역대하
+            * `EZRA` - 에스라
+            * `NEHEMIAH` - 느헤미야
+            * `ESTHER` - 에스더
+            * `JOB` - 욥기
+            * `PSALMS` - 시편
+            * `PROVERBS` - 잠언
+            * `ECCLESIASTES` - 전도서
+            * `SONG_OF_SONGS` - 아가
+            * `ISAIAH` - 이사야
+            * `JEREMIAH` - 예레미야
+            * `LAMENTATIONS` - 예레미야애가
+            * `EZEKIEL` - 에스겔
+            * `DANIEL` - 다니엘
+            * `HOSEA` - 호세아
+            * `JOEL` - 요엘
+            * `AMOS` - 아모스
+            * `OBADIAH` - 오바댜
+            * `JONAH` - 요나
+            * `MICAH` - 미가
+            * `NAHUM` - 나훔
+            * `HABAKKUK` - 하박국
+            * `ZEPHANIAH` - 스바냐
+            * `HAGGAI` - 학개
+            * `ZECHARIAH` - 스가랴
+            * `MALACHI` - 말라기
+            * `MATTHEW` - 마태복음
+            * `MARK` - 마가복음
+            * `LUKE` - 누가복음
+            * `JOHN` - 요한복음
+            * `ACTS` - 사도행전
+            * `ROMANS` - 로마서
+            * `1_CORINTHIANS` - 고린도전서
+            * `2_CORINTHIANS` - 고린도후서
+            * `GALATIANS` - 갈라디아서
+            * `EPHESIANS` - 에베소서
+            * `PHILIPPIANS` - 빌립보서
+            * `COLOSSIANS` - 골로새서
+            * `1_THESSALONIANS` - 데살로니가전서
+            * `2_THESSALONIANS` - 데살로니가후서
+            * `1_TIMOTHY` - 디모데전서
+            * `2_TIMOTHY` - 디모데후서
+            * `TITUS` - 디도서
+            * `PHILEMON` - 빌레몬서
+            * `HEBREWS` - 히브리서
+            * `JAMES` - 야고보서
+            * `1_PETER` - 베드로전서
+            * `2_PETER` - 베드로후서
+            * `1_JOHN` - 요한일서
+            * `2_JOHN` - 요한이서
+            * `3_JOHN` - 요한삼서
+            * `JUDE` - 유다서
+            * `REVELATION` - 요한계시록
+          x-spec-enum-id: 3a3e0973a194e417
+          title: 성경
+          x-enumNames:
+          - 역대상
+          - 고린도전서
+          - 요한일서
+          - 열왕기상
+          - 베드로전서
+          - 사무엘상
+          - 데살로니가전서
+          - 디모데전서
+          - 역대하
+          - 고린도후서
+          - 요한이서
+          - 열왕기하
+          - 베드로후서
+          - 사무엘하
+          - 데살로니가후서
+          - 디모데후서
+          - 요한삼서
+          - 사도행전
+          - 아모스
+          - 골로새서
+          - 다니엘
+          - 신명기
+          - 전도서
+          - 에베소서
+          - 에스더
+          - 출애굽기
+          - 에스겔
+          - 에스라
+          - 갈라디아서
+          - 창세기
+          - 하박국
+          - 학개
+          - 히브리서
+          - 호세아
+          - 이사야
+          - 야고보서
+          - 예레미야
+          - 욥기
+          - 요엘
+          - 요한복음
+          - 요나
+          - 여호수아
+          - 유다서
+          - 사사기
+          - 예레미야애가
+          - 레위기
+          - 누가복음
+          - 말라기
+          - 마가복음
+          - 마태복음
+          - 미가
+          - 나훔
+          - 느헤미야
+          - 민수기
+          - 오바댜
+          - 빌레몬서
+          - 빌립보서
+          - 잠언
+          - 시편
+          - 요한계시록
+          - 로마서
+          - 룻기
+          - 아가
+          - 디도서
+          - 스가랴
+          - 스바냐
+        chapter:
+          type: integer
+          title: 장
+        verse:
+          type: integer
+          title: 절
+        color:
+          enum:
+          - blue
+          - green
+          - purple
+          - red
+          - yellow
+          type: string
+          description: |-
+            * `red` - 빨강
+            * `yellow` - 노랑
+            * `green` - 초록
+            * `blue` - 파랑
+            * `purple` - 보라
+          x-spec-enum-id: 42e15ec821b02b99
+          title: 색상
+          x-enumNames:
+          - 파랑
+          - 초록
+          - 보라
+          - 빨강
+          - 노랑
+      required:
+      - book
+      - chapter
+      - color
+      - id
+      - user
+      - verse
+    BibleHighlightErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        book:
+          type: array
+          items:
+            type: string
+        chapter:
+          type: array
+          items:
+            type: string
+        verse:
+          type: array
+          items:
+            type: string
+        color:
+          type: array
+          items:
+            type: string
+    BibleHighlightRequest:
+      type: object
+      description: |-
+        이미 객체가 존재해도 동일하게 post로 요청하면 됨 (색상 변경됨)
+        sorting: verse의 오름차순 (책/장: 필터링 필수값)
+      properties:
+        book:
+          enum:
+          - 1_CHRONICLES
+          - 1_CORINTHIANS
+          - 1_JOHN
+          - 1_KINGS
+          - 1_PETER
+          - 1_SAMUEL
+          - 1_THESSALONIANS
+          - 1_TIMOTHY
+          - 2_CHRONICLES
+          - 2_CORINTHIANS
+          - 2_JOHN
+          - 2_KINGS
+          - 2_PETER
+          - 2_SAMUEL
+          - 2_THESSALONIANS
+          - 2_TIMOTHY
+          - 3_JOHN
+          - ACTS
+          - AMOS
+          - COLOSSIANS
+          - DANIEL
+          - DEUTERONOMY
+          - ECCLESIASTES
+          - EPHESIANS
+          - ESTHER
+          - EXODUS
+          - EZEKIEL
+          - EZRA
+          - GALATIANS
+          - GENESIS
+          - HABAKKUK
+          - HAGGAI
+          - HEBREWS
+          - HOSEA
+          - ISAIAH
+          - JAMES
+          - JEREMIAH
+          - JOB
+          - JOEL
+          - JOHN
+          - JONAH
+          - JOSHUA
+          - JUDE
+          - JUDGES
+          - LAMENTATIONS
+          - LEVITICUS
+          - LUKE
+          - MALACHI
+          - MARK
+          - MATTHEW
+          - MICAH
+          - NAHUM
+          - NEHEMIAH
+          - NUMBERS
+          - OBADIAH
+          - PHILEMON
+          - PHILIPPIANS
+          - PROVERBS
+          - PSALMS
+          - REVELATION
+          - ROMANS
+          - RUTH
+          - SONG_OF_SONGS
+          - TITUS
+          - ZECHARIAH
+          - ZEPHANIAH
+          type: string
+          description: |-
+            * `GENESIS` - 창세기
+            * `EXODUS` - 출애굽기
+            * `LEVITICUS` - 레위기
+            * `NUMBERS` - 민수기
+            * `DEUTERONOMY` - 신명기
+            * `JOSHUA` - 여호수아
+            * `JUDGES` - 사사기
+            * `RUTH` - 룻기
+            * `1_SAMUEL` - 사무엘상
+            * `2_SAMUEL` - 사무엘하
+            * `1_KINGS` - 열왕기상
+            * `2_KINGS` - 열왕기하
+            * `1_CHRONICLES` - 역대상
+            * `2_CHRONICLES` - 역대하
+            * `EZRA` - 에스라
+            * `NEHEMIAH` - 느헤미야
+            * `ESTHER` - 에스더
+            * `JOB` - 욥기
+            * `PSALMS` - 시편
+            * `PROVERBS` - 잠언
+            * `ECCLESIASTES` - 전도서
+            * `SONG_OF_SONGS` - 아가
+            * `ISAIAH` - 이사야
+            * `JEREMIAH` - 예레미야
+            * `LAMENTATIONS` - 예레미야애가
+            * `EZEKIEL` - 에스겔
+            * `DANIEL` - 다니엘
+            * `HOSEA` - 호세아
+            * `JOEL` - 요엘
+            * `AMOS` - 아모스
+            * `OBADIAH` - 오바댜
+            * `JONAH` - 요나
+            * `MICAH` - 미가
+            * `NAHUM` - 나훔
+            * `HABAKKUK` - 하박국
+            * `ZEPHANIAH` - 스바냐
+            * `HAGGAI` - 학개
+            * `ZECHARIAH` - 스가랴
+            * `MALACHI` - 말라기
+            * `MATTHEW` - 마태복음
+            * `MARK` - 마가복음
+            * `LUKE` - 누가복음
+            * `JOHN` - 요한복음
+            * `ACTS` - 사도행전
+            * `ROMANS` - 로마서
+            * `1_CORINTHIANS` - 고린도전서
+            * `2_CORINTHIANS` - 고린도후서
+            * `GALATIANS` - 갈라디아서
+            * `EPHESIANS` - 에베소서
+            * `PHILIPPIANS` - 빌립보서
+            * `COLOSSIANS` - 골로새서
+            * `1_THESSALONIANS` - 데살로니가전서
+            * `2_THESSALONIANS` - 데살로니가후서
+            * `1_TIMOTHY` - 디모데전서
+            * `2_TIMOTHY` - 디모데후서
+            * `TITUS` - 디도서
+            * `PHILEMON` - 빌레몬서
+            * `HEBREWS` - 히브리서
+            * `JAMES` - 야고보서
+            * `1_PETER` - 베드로전서
+            * `2_PETER` - 베드로후서
+            * `1_JOHN` - 요한일서
+            * `2_JOHN` - 요한이서
+            * `3_JOHN` - 요한삼서
+            * `JUDE` - 유다서
+            * `REVELATION` - 요한계시록
+          x-spec-enum-id: 3a3e0973a194e417
+          title: 성경
+          x-enumNames:
+          - 역대상
+          - 고린도전서
+          - 요한일서
+          - 열왕기상
+          - 베드로전서
+          - 사무엘상
+          - 데살로니가전서
+          - 디모데전서
+          - 역대하
+          - 고린도후서
+          - 요한이서
+          - 열왕기하
+          - 베드로후서
+          - 사무엘하
+          - 데살로니가후서
+          - 디모데후서
+          - 요한삼서
+          - 사도행전
+          - 아모스
+          - 골로새서
+          - 다니엘
+          - 신명기
+          - 전도서
+          - 에베소서
+          - 에스더
+          - 출애굽기
+          - 에스겔
+          - 에스라
+          - 갈라디아서
+          - 창세기
+          - 하박국
+          - 학개
+          - 히브리서
+          - 호세아
+          - 이사야
+          - 야고보서
+          - 예레미야
+          - 욥기
+          - 요엘
+          - 요한복음
+          - 요나
+          - 여호수아
+          - 유다서
+          - 사사기
+          - 예레미야애가
+          - 레위기
+          - 누가복음
+          - 말라기
+          - 마가복음
+          - 마태복음
+          - 미가
+          - 나훔
+          - 느헤미야
+          - 민수기
+          - 오바댜
+          - 빌레몬서
+          - 빌립보서
+          - 잠언
+          - 시편
+          - 요한계시록
+          - 로마서
+          - 룻기
+          - 아가
+          - 디도서
+          - 스가랴
+          - 스바냐
+        chapter:
+          type: integer
+          title: 장
+        verse:
+          type: integer
+          title: 절
+        color:
+          enum:
+          - blue
+          - green
+          - purple
+          - red
+          - yellow
+          type: string
+          description: |-
+            * `red` - 빨강
+            * `yellow` - 노랑
+            * `green` - 초록
+            * `blue` - 파랑
+            * `purple` - 보라
+          x-spec-enum-id: 42e15ec821b02b99
+          title: 색상
+          x-enumNames:
+          - 파랑
+          - 초록
+          - 보라
+          - 빨강
+          - 노랑
+      required:
+      - book
+      - chapter
+      - color
+      - verse
+    BibleReadingLog:
+      type: object
+      description: 데일리에 대해서 등록 (덮어씌우기)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        count:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 생성일시(읽은일시)
+          description: UTC 기준
+        timezoneOffset:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: 분단위
+          description: 디바이스와 UTC간의 차이
+        localDate:
+          type: string
+          format: date
+          readOnly: true
+          title: 사용자 타임존 기준, 실제 날짜
+        recognizedDate:
+          type: string
+          format: date
+          readOnly: true
+          title: 통계에서 사용되는 날짜
+          description: 04:00 기준, 인정되는 날짜
+      required:
+      - createdAt
+      - id
+      - localDate
+      - recognizedDate
+      - timezoneOffset
+      - user
+    BibleReadingLogErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        count:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+    BibleReadingLogItem:
+      type: object
+      description: 성경 읽기 기록 아이템
+      properties:
+        id:
+          type: integer
+          description: 기록 ID
+        count:
+          type: integer
+          description: 읽은 양
+        localDate:
+          type: string
+          format: date
+          description: 로컬 날짜
+        recognizedDate:
+          type: string
+          format: date
+          description: 인식 날짜
+        createdAt:
+          type: string
+          format: date-time
+          description: 생성 시간
+      required:
+      - count
+      - createdAt
+      - id
+      - localDate
+      - recognizedDate
+    BibleReadingLogList:
+      type: object
+      description: 성경 읽기 기록 목록
+      properties:
+        count:
+          type: integer
+          description: 총 기록 수
+        todayTotalChapterCount:
+          type: integer
+          description: 총 읽은 양
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibleReadingLogItem'
+          description: 읽기 기록들
+      required:
+      - count
+      - results
+      - todayTotalChapterCount
+    BibleReadingLogRequest:
+      type: object
+      description: 데일리에 대해서 등록 (덮어씌우기)
+      properties:
+        count:
+          type: integer
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+      required:
+      - localDatetime
+    BibleReadingStatus:
+      type: object
+      description: 해당 유저가 지금까지 읽은 내역에 대해서
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        book:
+          enum:
+          - 1_CHRONICLES
+          - 1_CORINTHIANS
+          - 1_JOHN
+          - 1_KINGS
+          - 1_PETER
+          - 1_SAMUEL
+          - 1_THESSALONIANS
+          - 1_TIMOTHY
+          - 2_CHRONICLES
+          - 2_CORINTHIANS
+          - 2_JOHN
+          - 2_KINGS
+          - 2_PETER
+          - 2_SAMUEL
+          - 2_THESSALONIANS
+          - 2_TIMOTHY
+          - 3_JOHN
+          - ACTS
+          - AMOS
+          - COLOSSIANS
+          - DANIEL
+          - DEUTERONOMY
+          - ECCLESIASTES
+          - EPHESIANS
+          - ESTHER
+          - EXODUS
+          - EZEKIEL
+          - EZRA
+          - GALATIANS
+          - GENESIS
+          - HABAKKUK
+          - HAGGAI
+          - HEBREWS
+          - HOSEA
+          - ISAIAH
+          - JAMES
+          - JEREMIAH
+          - JOB
+          - JOEL
+          - JOHN
+          - JONAH
+          - JOSHUA
+          - JUDE
+          - JUDGES
+          - LAMENTATIONS
+          - LEVITICUS
+          - LUKE
+          - MALACHI
+          - MARK
+          - MATTHEW
+          - MICAH
+          - NAHUM
+          - NEHEMIAH
+          - NUMBERS
+          - OBADIAH
+          - PHILEMON
+          - PHILIPPIANS
+          - PROVERBS
+          - PSALMS
+          - REVELATION
+          - ROMANS
+          - RUTH
+          - SONG_OF_SONGS
+          - TITUS
+          - ZECHARIAH
+          - ZEPHANIAH
+          type: string
+          description: |-
+            * `GENESIS` - 창세기
+            * `EXODUS` - 출애굽기
+            * `LEVITICUS` - 레위기
+            * `NUMBERS` - 민수기
+            * `DEUTERONOMY` - 신명기
+            * `JOSHUA` - 여호수아
+            * `JUDGES` - 사사기
+            * `RUTH` - 룻기
+            * `1_SAMUEL` - 사무엘상
+            * `2_SAMUEL` - 사무엘하
+            * `1_KINGS` - 열왕기상
+            * `2_KINGS` - 열왕기하
+            * `1_CHRONICLES` - 역대상
+            * `2_CHRONICLES` - 역대하
+            * `EZRA` - 에스라
+            * `NEHEMIAH` - 느헤미야
+            * `ESTHER` - 에스더
+            * `JOB` - 욥기
+            * `PSALMS` - 시편
+            * `PROVERBS` - 잠언
+            * `ECCLESIASTES` - 전도서
+            * `SONG_OF_SONGS` - 아가
+            * `ISAIAH` - 이사야
+            * `JEREMIAH` - 예레미야
+            * `LAMENTATIONS` - 예레미야애가
+            * `EZEKIEL` - 에스겔
+            * `DANIEL` - 다니엘
+            * `HOSEA` - 호세아
+            * `JOEL` - 요엘
+            * `AMOS` - 아모스
+            * `OBADIAH` - 오바댜
+            * `JONAH` - 요나
+            * `MICAH` - 미가
+            * `NAHUM` - 나훔
+            * `HABAKKUK` - 하박국
+            * `ZEPHANIAH` - 스바냐
+            * `HAGGAI` - 학개
+            * `ZECHARIAH` - 스가랴
+            * `MALACHI` - 말라기
+            * `MATTHEW` - 마태복음
+            * `MARK` - 마가복음
+            * `LUKE` - 누가복음
+            * `JOHN` - 요한복음
+            * `ACTS` - 사도행전
+            * `ROMANS` - 로마서
+            * `1_CORINTHIANS` - 고린도전서
+            * `2_CORINTHIANS` - 고린도후서
+            * `GALATIANS` - 갈라디아서
+            * `EPHESIANS` - 에베소서
+            * `PHILIPPIANS` - 빌립보서
+            * `COLOSSIANS` - 골로새서
+            * `1_THESSALONIANS` - 데살로니가전서
+            * `2_THESSALONIANS` - 데살로니가후서
+            * `1_TIMOTHY` - 디모데전서
+            * `2_TIMOTHY` - 디모데후서
+            * `TITUS` - 디도서
+            * `PHILEMON` - 빌레몬서
+            * `HEBREWS` - 히브리서
+            * `JAMES` - 야고보서
+            * `1_PETER` - 베드로전서
+            * `2_PETER` - 베드로후서
+            * `1_JOHN` - 요한일서
+            * `2_JOHN` - 요한이서
+            * `3_JOHN` - 요한삼서
+            * `JUDE` - 유다서
+            * `REVELATION` - 요한계시록
+          x-spec-enum-id: 3a3e0973a194e417
+          title: 성경
+          x-enumNames:
+          - 역대상
+          - 고린도전서
+          - 요한일서
+          - 열왕기상
+          - 베드로전서
+          - 사무엘상
+          - 데살로니가전서
+          - 디모데전서
+          - 역대하
+          - 고린도후서
+          - 요한이서
+          - 열왕기하
+          - 베드로후서
+          - 사무엘하
+          - 데살로니가후서
+          - 디모데후서
+          - 요한삼서
+          - 사도행전
+          - 아모스
+          - 골로새서
+          - 다니엘
+          - 신명기
+          - 전도서
+          - 에베소서
+          - 에스더
+          - 출애굽기
+          - 에스겔
+          - 에스라
+          - 갈라디아서
+          - 창세기
+          - 하박국
+          - 학개
+          - 히브리서
+          - 호세아
+          - 이사야
+          - 야고보서
+          - 예레미야
+          - 욥기
+          - 요엘
+          - 요한복음
+          - 요나
+          - 여호수아
+          - 유다서
+          - 사사기
+          - 예레미야애가
+          - 레위기
+          - 누가복음
+          - 말라기
+          - 마가복음
+          - 마태복음
+          - 미가
+          - 나훔
+          - 느헤미야
+          - 민수기
+          - 오바댜
+          - 빌레몬서
+          - 빌립보서
+          - 잠언
+          - 시편
+          - 요한계시록
+          - 로마서
+          - 룻기
+          - 아가
+          - 디도서
+          - 스가랴
+          - 스바냐
+        chapter:
+          type: integer
+          title: 장
+        count:
+          type: integer
+          readOnly: true
+          title: 해당 유저가 해당 책/장을 몇 번 읽었는지(날짜와 상관 없이)
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 생성일시
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 수정일시
+        timezoneOffset:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: 분단위
+          description: 디바이스와 UTC간의 차이
+      required:
+      - book
+      - chapter
+      - count
+      - createdAt
+      - id
+      - timezoneOffset
+      - updatedAt
+      - user
+    BibleReadingStatusErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        book:
+          type: array
+          items:
+            type: string
+        chapter:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+    BibleReadingStatusRequest:
+      type: object
+      description: 해당 유저가 지금까지 읽은 내역에 대해서
+      properties:
+        book:
+          enum:
+          - 1_CHRONICLES
+          - 1_CORINTHIANS
+          - 1_JOHN
+          - 1_KINGS
+          - 1_PETER
+          - 1_SAMUEL
+          - 1_THESSALONIANS
+          - 1_TIMOTHY
+          - 2_CHRONICLES
+          - 2_CORINTHIANS
+          - 2_JOHN
+          - 2_KINGS
+          - 2_PETER
+          - 2_SAMUEL
+          - 2_THESSALONIANS
+          - 2_TIMOTHY
+          - 3_JOHN
+          - ACTS
+          - AMOS
+          - COLOSSIANS
+          - DANIEL
+          - DEUTERONOMY
+          - ECCLESIASTES
+          - EPHESIANS
+          - ESTHER
+          - EXODUS
+          - EZEKIEL
+          - EZRA
+          - GALATIANS
+          - GENESIS
+          - HABAKKUK
+          - HAGGAI
+          - HEBREWS
+          - HOSEA
+          - ISAIAH
+          - JAMES
+          - JEREMIAH
+          - JOB
+          - JOEL
+          - JOHN
+          - JONAH
+          - JOSHUA
+          - JUDE
+          - JUDGES
+          - LAMENTATIONS
+          - LEVITICUS
+          - LUKE
+          - MALACHI
+          - MARK
+          - MATTHEW
+          - MICAH
+          - NAHUM
+          - NEHEMIAH
+          - NUMBERS
+          - OBADIAH
+          - PHILEMON
+          - PHILIPPIANS
+          - PROVERBS
+          - PSALMS
+          - REVELATION
+          - ROMANS
+          - RUTH
+          - SONG_OF_SONGS
+          - TITUS
+          - ZECHARIAH
+          - ZEPHANIAH
+          type: string
+          description: |-
+            * `GENESIS` - 창세기
+            * `EXODUS` - 출애굽기
+            * `LEVITICUS` - 레위기
+            * `NUMBERS` - 민수기
+            * `DEUTERONOMY` - 신명기
+            * `JOSHUA` - 여호수아
+            * `JUDGES` - 사사기
+            * `RUTH` - 룻기
+            * `1_SAMUEL` - 사무엘상
+            * `2_SAMUEL` - 사무엘하
+            * `1_KINGS` - 열왕기상
+            * `2_KINGS` - 열왕기하
+            * `1_CHRONICLES` - 역대상
+            * `2_CHRONICLES` - 역대하
+            * `EZRA` - 에스라
+            * `NEHEMIAH` - 느헤미야
+            * `ESTHER` - 에스더
+            * `JOB` - 욥기
+            * `PSALMS` - 시편
+            * `PROVERBS` - 잠언
+            * `ECCLESIASTES` - 전도서
+            * `SONG_OF_SONGS` - 아가
+            * `ISAIAH` - 이사야
+            * `JEREMIAH` - 예레미야
+            * `LAMENTATIONS` - 예레미야애가
+            * `EZEKIEL` - 에스겔
+            * `DANIEL` - 다니엘
+            * `HOSEA` - 호세아
+            * `JOEL` - 요엘
+            * `AMOS` - 아모스
+            * `OBADIAH` - 오바댜
+            * `JONAH` - 요나
+            * `MICAH` - 미가
+            * `NAHUM` - 나훔
+            * `HABAKKUK` - 하박국
+            * `ZEPHANIAH` - 스바냐
+            * `HAGGAI` - 학개
+            * `ZECHARIAH` - 스가랴
+            * `MALACHI` - 말라기
+            * `MATTHEW` - 마태복음
+            * `MARK` - 마가복음
+            * `LUKE` - 누가복음
+            * `JOHN` - 요한복음
+            * `ACTS` - 사도행전
+            * `ROMANS` - 로마서
+            * `1_CORINTHIANS` - 고린도전서
+            * `2_CORINTHIANS` - 고린도후서
+            * `GALATIANS` - 갈라디아서
+            * `EPHESIANS` - 에베소서
+            * `PHILIPPIANS` - 빌립보서
+            * `COLOSSIANS` - 골로새서
+            * `1_THESSALONIANS` - 데살로니가전서
+            * `2_THESSALONIANS` - 데살로니가후서
+            * `1_TIMOTHY` - 디모데전서
+            * `2_TIMOTHY` - 디모데후서
+            * `TITUS` - 디도서
+            * `PHILEMON` - 빌레몬서
+            * `HEBREWS` - 히브리서
+            * `JAMES` - 야고보서
+            * `1_PETER` - 베드로전서
+            * `2_PETER` - 베드로후서
+            * `1_JOHN` - 요한일서
+            * `2_JOHN` - 요한이서
+            * `3_JOHN` - 요한삼서
+            * `JUDE` - 유다서
+            * `REVELATION` - 요한계시록
+          x-spec-enum-id: 3a3e0973a194e417
+          title: 성경
+          x-enumNames:
+          - 역대상
+          - 고린도전서
+          - 요한일서
+          - 열왕기상
+          - 베드로전서
+          - 사무엘상
+          - 데살로니가전서
+          - 디모데전서
+          - 역대하
+          - 고린도후서
+          - 요한이서
+          - 열왕기하
+          - 베드로후서
+          - 사무엘하
+          - 데살로니가후서
+          - 디모데후서
+          - 요한삼서
+          - 사도행전
+          - 아모스
+          - 골로새서
+          - 다니엘
+          - 신명기
+          - 전도서
+          - 에베소서
+          - 에스더
+          - 출애굽기
+          - 에스겔
+          - 에스라
+          - 갈라디아서
+          - 창세기
+          - 하박국
+          - 학개
+          - 히브리서
+          - 호세아
+          - 이사야
+          - 야고보서
+          - 예레미야
+          - 욥기
+          - 요엘
+          - 요한복음
+          - 요나
+          - 여호수아
+          - 유다서
+          - 사사기
+          - 예레미야애가
+          - 레위기
+          - 누가복음
+          - 말라기
+          - 마가복음
+          - 마태복음
+          - 미가
+          - 나훔
+          - 느헤미야
+          - 민수기
+          - 오바댜
+          - 빌레몬서
+          - 빌립보서
+          - 잠언
+          - 시편
+          - 요한계시록
+          - 로마서
+          - 룻기
+          - 아가
+          - 디도서
+          - 스가랴
+          - 스바냐
+        chapter:
+          type: integer
+          title: 장
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+      required:
+      - book
+      - chapter
+      - localDatetime
+    BibleVersion:
+      type: object
+      properties:
+        name:
+          type: string
+          title: 버전명
+          maxLength: 20
+      required:
+      - name
+    CommonError:
+      type: object
+      properties:
+        detail:
+          type: string
+      required:
+      - detail
+    DailyCheckStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        checkType:
+          enum:
+          - som_reading_status
+          - worship
+          type: string
+          description: |-
+            * `som_reading_status` - 산상수훈
+            * `worship` - 예배
+          x-spec-enum-id: 592721a8d7ec7770
+          title: 체크 유형
+          x-enumNames:
+          - 산상수훈
+          - 예배
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 생성일시(읽은일시)
+          description: UTC 기준
+        timezoneOffset:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: 분단위
+          description: 디바이스와 UTC간의 차이
+        localDate:
+          type: string
+          format: date
+          readOnly: true
+          description: 사용자 타임존 기준, 실제 날짜
+        recognizedDate:
+          type: string
+          format: date
+          readOnly: true
+          description: 04:00 기준, 인정되는 날짜
+      required:
+      - checkType
+      - createdAt
+      - id
+      - localDate
+      - recognizedDate
+      - timezoneOffset
+      - user
+    DailyCheckStatusErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        checkType:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+    DailyCheckStatusRequest:
+      type: object
+      properties:
+        checkType:
+          enum:
+          - som_reading_status
+          - worship
+          type: string
+          description: |-
+            * `som_reading_status` - 산상수훈
+            * `worship` - 예배
+          x-spec-enum-id: 592721a8d7ec7770
+          title: 체크 유형
+          x-enumNames:
+          - 산상수훈
+          - 예배
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+      required:
+      - checkType
+      - localDatetime
+    DailyDashboardResponse:
+      type: object
+      properties:
+        date:
+          type: string
+          description: 조회 날짜 (YYYY-MM-DD)
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyResultItem'
+          description: 일별 결과 목록
+      required:
+      - date
+      - results
+    DailyResultItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 항목 ID (1-7)
+        name:
+          type: string
+          description: 항목명
+        value:
+          type: integer
+          description: '값 (기도: 분, 말씀: 장수, 죄와의싸움: 점수)'
+        practice:
+          type: string
+          description: 실천 내용
+        isCompleted:
+          type: boolean
+          description: 완료 여부
+      required:
+      - id
+      - isCompleted
+      - name
+    DailyScreenTimeLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date
+        minutes:
+          type: integer
+          minimum: 0
+      required:
+      - date
+      - id
+      - minutes
+    DailyScreenTimeLogErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        date:
+          type: array
+          items:
+            type: string
+        minutes:
+          type: array
+          items:
+            type: string
+    DailyScreenTimeLogRequest:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        minutes:
+          type: integer
+          minimum: 0
+      required:
+      - date
+      - minutes
+    DashboardToday:
+      type: object
+      properties:
+        prayerDone:
+          type: boolean
+        wordDone:
+          type: boolean
+        trainingDone:
+          type: boolean
+        dailyRoutineDone:
+          type: boolean
+        screenTimeMinutes:
+          type: integer
+          nullable: true
+      required:
+      - dailyRoutineDone
+      - prayerDone
+      - screenTimeMinutes
+      - trainingDone
+      - wordDone
+    DashboardWeekSummary:
+      type: object
+      properties:
+        completedDays:
+          type: integer
+        totalDays:
+          type: integer
+      required:
+      - completedDays
+      - totalDays
+    Device:
+      type: object
+      properties:
+        uid:
+          type: string
+          maxLength: 64
+        token:
+          type: string
+          title: 값
+          maxLength: 256
+      required:
+      - token
+      - uid
+    DeviceRequest:
+      type: object
+      properties:
+        uid:
+          type: string
+          minLength: 1
+          maxLength: 64
+        token:
+          type: string
+          minLength: 1
+          title: 값
+          maxLength: 256
+      required:
+      - token
+      - uid
+    DeviceValidationError:
+      type: object
+      properties:
+        uid:
+          type: array
+          items:
+            type: string
+        token:
+          type: array
+          items:
+            type: string
+    EmailVerificationSend:
+      type: object
+      description: |-
+        이메일 (존재 여부) 검증 후 메일 전송
+        : 이메일로 회원가입하기
+        : purpose 필드에 대해서 삭제함 무조건 이메일 검증밖에 없어서!
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    EmailVerificationSendErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        email:
+          type: array
+          items:
+            type: string
+    EmailVerificationSendRequest:
+      type: object
+      description: |-
+        이메일 (존재 여부) 검증 후 메일 전송
+        : 이메일로 회원가입하기
+        : purpose 필드에 대해서 삭제함 무조건 이메일 검증밖에 없어서!
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+      required:
+      - email
+    GroupCreateErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        name:
+          type: array
+          items:
+            type: string
+        description:
+          type: array
+          items:
+            type: string
+    GroupCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+      required:
+      - name
+    GroupCreateResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        status:
+          enum:
+          - approved
+          - pending
+          - rejected
+          type: string
+          description: |-
+            * `pending` - 대기
+            * `approved` - 승인
+            * `rejected` - 거절
+          x-spec-enum-id: 4bd9829cd8cec7f0
+          x-enumNames:
+          - 승인
+          - 대기
+          - 거절
+      required:
+      - id
+    GroupDashboardGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+      - id
+      - name
+    GroupDashboardMember:
+      type: object
+      properties:
+        userId:
+          type: integer
+        name:
+          type: string
+        today:
+          $ref: '#/components/schemas/DashboardToday'
+        weekSummary:
+          $ref: '#/components/schemas/DashboardWeekSummary'
+        streak:
+          type: integer
+          nullable: true
+      required:
+      - name
+      - streak
+      - today
+      - userId
+      - weekSummary
+    GroupDashboardResponse:
+      type: object
+      properties:
+        group:
+          $ref: '#/components/schemas/GroupDashboardGroup'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupDashboardMember'
+      required:
+      - group
+      - members
+    GroupDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+        status:
+          enum:
+          - approved
+          - pending
+          - rejected
+          type: string
+          description: |-
+            * `pending` - 대기
+            * `approved` - 승인
+            * `rejected` - 거절
+          x-spec-enum-id: 4bd9829cd8cec7f0
+          x-enumNames:
+          - 승인
+          - 대기
+          - 거절
+        approvedAt:
+          type: string
+          format: date-time
+          nullable: true
+        leader:
+          type: integer
+        leaderName:
+          type: string
+          readOnly: true
+        members:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - leader
+      - leaderName
+      - members
+      - name
+    GroupInviteCreate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        code:
+          type: string
+          readOnly: true
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+        maxUses:
+          type: integer
+          minimum: 1
+          nullable: true
+        useCount:
+          type: integer
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - code
+      - createdAt
+      - id
+      - useCount
+    GroupInviteCreateErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        expiresAt:
+          type: array
+          items:
+            type: string
+        maxUses:
+          type: array
+          items:
+            type: string
+    GroupInviteCreateRequest:
+      type: object
+      properties:
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+        maxUses:
+          type: integer
+          minimum: 1
+          nullable: true
+    GroupJoinErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        code:
+          type: array
+          items:
+            type: string
+    GroupJoinRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 12
+      required:
+      - code
+    GroupJoinResponse:
+      type: object
+      properties:
+        groupId:
+          type: integer
+        membershipId:
+          type: integer
+        role:
+          type: string
+        status:
+          type: string
+      required:
+      - groupId
+      - membershipId
+      - role
+      - status
+    GroupLeaveResponse:
+      type: object
+      properties:
+        groupId:
+          type: integer
+        isActive:
+          type: boolean
+      required:
+      - groupId
+      - isActive
+    GroupMine:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+        status:
+          enum:
+          - approved
+          - pending
+          - rejected
+          type: string
+          description: |-
+            * `pending` - 대기
+            * `approved` - 승인
+            * `rejected` - 거절
+          x-spec-enum-id: 4bd9829cd8cec7f0
+          x-enumNames:
+          - 승인
+          - 대기
+          - 거절
+        approvedAt:
+          type: string
+          format: date-time
+          nullable: true
+        leaderName:
+          type: string
+          readOnly: true
+        myRole:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - leaderName
+      - myRole
+      - name
+    Inquiry:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+          nullable: true
+        title:
+          type: string
+          title: 제목
+          maxLength: 128
+        content:
+          type: string
+          title: 내용
+      required:
+      - content
+      - id
+      - title
+      - user
+    InquiryErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        title:
+          type: array
+          items:
+            type: string
+        content:
+          type: array
+          items:
+            type: string
+    InquiryRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          title: 제목
+          maxLength: 128
+        content:
+          type: string
+          minLength: 1
+          title: 내용
+      required:
+      - content
+      - title
+    MortificationOfSin:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        score:
+          type: integer
+          maximum: 10
+          minimum: 0
+          title: 점수
+          description: 0~10점 사이의 점수
+        timezoneOffset:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: 분단위
+          description: 디바이스와 UTC간의 차이
+        localDate:
+          type: string
+          format: date
+          readOnly: true
+          title: 사용자 타임존 기준, 실제 날짜
+        recognizedDate:
+          type: string
+          format: date
+          readOnly: true
+          title: 통계에서 사용되는 날짜
+          description: 04:00 기준, 인정되는 날짜
+      required:
+      - id
+      - localDate
+      - recognizedDate
+      - timezoneOffset
+    MortificationOfSinErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+        slot:
+          type: array
+          items:
+            type: string
+        score:
+          type: array
+          items:
+            type: string
+    MortificationOfSinRequest:
+      type: object
+      properties:
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+        slot:
+          enum:
+          - first
+          - second
+          type: string
+          x-spec-enum-id: ce27b71160529a6e
+          writeOnly: true
+          description: |-
+            죄와의 싸움 슬롯 (FIRST 또는 SECOND)
+
+            * `first` - 죄와의 싸움 1
+            * `second` - 죄와의 싸움 2
+          x-enumNames:
+          - 죄와의 싸움 1
+          - 죄와의 싸움 2
+        score:
+          type: integer
+          maximum: 10
+          minimum: 0
+          title: 점수
+          description: 0~10점 사이의 점수
+      required:
+      - localDatetime
+      - slot
+    NextNotification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - title
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 생성일시
+        title:
+          type: string
+          title: 제목
+          description: 제목은 최대 24자입니다.
+          maxLength: 24
+        content:
+          type: string
+          title: 내용
+        prevObj:
+          allOf:
+          - $ref: '#/components/schemas/PrevNotification'
+          readOnly: true
+        nextObj:
+          allOf:
+          - $ref: '#/components/schemas/NextNotification'
+          readOnly: true
+      required:
+      - content
+      - createdAt
+      - id
+      - nextObj
+      - prevObj
+      - title
+    PaginatedBibleHighlightList:
+      type: object
+      properties:
+        count:
+          type: integer
+        cursor:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibleHighlight'
+    PaginatedBibleReadingLogListList:
+      type: object
+      properties:
+        count:
+          type: integer
+        cursor:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibleReadingLogList'
+    PaginatedBibleReadingStatusList:
+      type: object
+      properties:
+        count:
+          type: integer
+        cursor:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BibleReadingStatus'
+    PaginatedNotificationList:
+      type: object
+      properties:
+        count:
+          type: integer
+        isNext:
+          type: boolean
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+    PaginatedPrayTimeLogList:
+      type: object
+      properties:
+        count:
+          type: integer
+        cursor:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrayTimeLog'
+    PaginatedPrayerBgmTrackList:
+      type: object
+      properties:
+        count:
+          type: integer
+        cursor:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrayerBgmTrack'
+    PaginatedPrayerJournalListList:
+      type: object
+      properties:
+        count:
+          type: integer
+        cursor:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrayerJournalList'
+    PaginatedSermonList:
+      type: object
+      properties:
+        count:
+          type: integer
+        cursor:
+          type: string
+          nullable: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sermon'
+    PaginatedTestimonyJournalList:
+      type: object
+      properties:
+        count:
+          type: integer
+        isNext:
+          type: boolean
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestimonyJournal'
+    PrayTimeLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        type:
+          enum:
+          - manual
+          - stopwatch
+          - timer
+          type: string
+          description: |-
+            * `timer` - 타이머
+            * `stopwatch` - 스톱워치
+            * `manual` - 수동입력
+          x-spec-enum-id: '2157406780552699'
+          title: 기록 방식
+          x-enumNames:
+          - 수동입력
+          - 스톱워치
+          - 타이머
+        startedTime:
+          type: string
+          format: time
+          nullable: true
+          title: (스톱워치용)시작시간
+          description: 스톱워치일 때는 값을 넣어줍니다. 타이머/수동일 때는 null처리
+        endedTime:
+          type: string
+          format: time
+          nullable: true
+          title: (스톱워치용)종료시간
+          description: 스톱워치일 때는 값을 넣어줍니다. 타이머/수동일 때는 null처리
+        durationSeconds:
+          type: integer
+          title: 타이머/수동 일 때만 값을 넣어줍니다. (스톱워치일 때는 X)
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 생성일시(읽은일시)
+          description: UTC 기준
+        timezoneOffset:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: 분단위
+          description: 디바이스와 UTC간의 차이
+        localDate:
+          type: string
+          format: date
+          readOnly: true
+          title: 사용자 타임존 기준, 실제 날짜
+        recognizedDate:
+          type: string
+          format: date
+          readOnly: true
+          title: 통계에서 사용되는 날짜
+          description: 04:00 기준, 인정되는 날짜
+      required:
+      - createdAt
+      - id
+      - localDate
+      - recognizedDate
+      - timezoneOffset
+      - type
+      - user
+    PrayTimeLogErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        type:
+          type: array
+          items:
+            type: string
+        startedTime:
+          type: array
+          items:
+            type: string
+        endedTime:
+          type: array
+          items:
+            type: string
+        durationSeconds:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+    PrayTimeLogRequest:
+      type: object
+      properties:
+        type:
+          enum:
+          - manual
+          - stopwatch
+          - timer
+          type: string
+          description: |-
+            * `timer` - 타이머
+            * `stopwatch` - 스톱워치
+            * `manual` - 수동입력
+          x-spec-enum-id: '2157406780552699'
+          title: 기록 방식
+          x-enumNames:
+          - 수동입력
+          - 스톱워치
+          - 타이머
+        startedTime:
+          type: string
+          format: time
+          nullable: true
+          title: (스톱워치용)시작시간
+          description: 스톱워치일 때는 값을 넣어줍니다. 타이머/수동일 때는 null처리
+        endedTime:
+          type: string
+          format: time
+          nullable: true
+          title: (스톱워치용)종료시간
+          description: 스톱워치일 때는 값을 넣어줍니다. 타이머/수동일 때는 null처리
+        durationSeconds:
+          type: integer
+          title: 타이머/수동 일 때만 값을 넣어줍니다. (스톱워치일 때는 X)
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+      required:
+      - localDatetime
+      - type
+    PrayerBgmTrack:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: BGM 제목
+          maxLength: 100
+        audioFile:
+          type: string
+          format: uri
+          title: 음원 파일
+        thumbnailImage:
+          type: string
+          format: uri
+          nullable: true
+          title: 썸네일 이미지
+        durationSeconds:
+          type: integer
+          title: 총 재생 시간(초)
+          description: 진행바 표시용
+        isActive:
+          type: boolean
+          title: 활성화 여부
+      required:
+      - audioFile
+      - durationSeconds
+      - id
+      - title
+    PrayerJournal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: 제목
+          maxLength: 128
+        content:
+          type: string
+          title: 내용
+        startDate:
+          type: string
+          format: date
+          description: 입력하면 해당 값으로 db에 저장하고, 입력값이 없으면 생성일 기준으로 db에 저장되도록
+        isAnswered:
+          type: boolean
+          title: 응답 여부
+        answerDate:
+          type: string
+          format: date
+          description: 기도 응답 날짜 (PUT 요청시에만 사용 가능)
+      required:
+      - content
+      - id
+      - title
+    PrayerJournalAnswered:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        isAnswered:
+          type: boolean
+          readOnly: true
+          title: 응답 여부
+        answerDate:
+          type: string
+          format: date
+          readOnly: true
+          nullable: true
+          title: 기도 응답 일자
+      required:
+      - answerDate
+      - id
+      - isAnswered
+    PrayerJournalAnsweredErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+    PrayerJournalCreateErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        title:
+          type: array
+          items:
+            type: string
+        content:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: array
+          items:
+            type: string
+    PrayerJournalCreateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        content:
+          type: string
+          minLength: 1
+        startDate:
+          type: string
+          format: date
+          description: 입력하면 해당 값으로 db에 저장하고, 입력값이 없으면 생성일 기준으로 db에 저장되도록
+      required:
+      - content
+      - title
+    PrayerJournalList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: 제목
+          maxLength: 128
+        content:
+          type: string
+          title: 내용
+        startDate:
+          type: string
+          format: date
+          title: 기도 시작 일자
+        isAnswered:
+          type: boolean
+          title: 응답 여부
+      required:
+      - content
+      - id
+      - startDate
+      - title
+    PrayerJournalUpdateErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        title:
+          type: array
+          items:
+            type: string
+        content:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: array
+          items:
+            type: string
+        isAnswered:
+          type: array
+          items:
+            type: string
+        answerDate:
+          type: array
+          items:
+            type: string
+    PrayerJournalUpdateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        content:
+          type: string
+          minLength: 1
+        startDate:
+          type: string
+          format: date
+        isAnswered:
+          type: boolean
+        answerDate:
+          type: string
+          format: date
+      required:
+      - isAnswered
+    Presigned:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        fields:
+          readOnly: true
+      required:
+      - fields
+      - url
+    PresignedErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        fieldChoice:
+          type: array
+          items:
+            type: string
+        fileName:
+          type: array
+          items:
+            type: string
+        isDownload:
+          type: array
+          items:
+            type: string
+    PresignedRequest:
+      type: object
+      properties:
+        fieldChoice:
+          enum:
+          - bible.Bible.data
+          - prayer_bgm_track.PrayerBgmTrack.audio_file
+          - prayer_bgm_track.PrayerBgmTrack.thumbnail_image
+          type: string
+          description: |-
+            * `bible.Bible.data` - 데이터
+            * `prayer_bgm_track.PrayerBgmTrack.audio_file` - 음원 파일
+            * `prayer_bgm_track.PrayerBgmTrack.thumbnail_image` - 썸네일 이미지
+          x-spec-enum-id: 3ffad2e3478da593
+          writeOnly: true
+          x-enumNames:
+          - 데이터
+          - 음원 파일
+          - 썸네일 이미지
+        fileName:
+          type: string
+          writeOnly: true
+          minLength: 1
+        isDownload:
+          type: boolean
+          writeOnly: true
+      required:
+      - fieldChoice
+      - fileName
+      - isDownload
+    PrevNotification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - title
+    PrivacyPolicy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        version:
+          type: integer
+          readOnly: true
+        content:
+          type: string
+          title: 내용
+      required:
+      - content
+      - id
+      - version
+    Sermon:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        youtubeLink:
+          type: string
+          format: uri
+          title: 유튜브 링크
+          maxLength: 200
+        title:
+          type: string
+          title: 제목
+          maxLength: 128
+        content:
+          type: string
+          title: 내용
+        preachedDate:
+          type: string
+          format: date
+          title: 설교일자
+        isWatched:
+          type: boolean
+          default: false
+          title: 시청 여부
+        isBookmarked:
+          type: boolean
+          default: false
+          title: 북마크 여부
+        worshipType:
+          enum:
+          - overnight
+          - sunday
+          type: string
+          description: |-
+            * `sunday` - 주일
+            * `overnight` - 철야
+          x-spec-enum-id: 43a4c097293a93e4
+          title: 예배 종류
+          x-enumNames:
+          - 철야
+          - 주일
+        sundayPreacher:
+          allOf:
+          - $ref: '#/components/schemas/SermonSundayPreacher'
+          readOnly: true
+        overnightWorshipType:
+          enum:
+          - friday_night
+          - thursday_night
+          type: string
+          description: |-
+            * `friday_night` - 금요집회
+            * `thursday_night` - 목요집회
+          x-spec-enum-id: d1b2c38d1464583a
+          nullable: true
+          title: 철야예배 종류
+          x-enumNames:
+          - 금요집회
+          - 목요집회
+      required:
+      - content
+      - id
+      - preachedDate
+      - sundayPreacher
+      - title
+      - youtubeLink
+    SermonBookmark:
+      type: object
+      description: 양방향 / 토글
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        sermon:
+          type: integer
+          readOnly: true
+          title: 설교
+        user:
+          type: integer
+          readOnly: true
+          title: 사용자
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 생성일시
+      required:
+      - createdAt
+      - id
+      - sermon
+      - user
+    SermonBookmarkErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+    SermonSundayPreacher:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: 설교자
+          description: 이름, 직책 포함해서 입력해 주세요.
+          maxLength: 100
+      required:
+      - id
+      - name
+    SermonWatch:
+      type: object
+      description: 양방향 / 토글
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        sermon:
+          type: integer
+          readOnly: true
+          title: 설교
+        user:
+          type: integer
+          readOnly: true
+          title: 사용자
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+          title: 생성일시
+      required:
+      - createdAt
+      - id
+      - sermon
+      - user
+    SermonWatchErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+    SpiritualDiscipline:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        timezoneOffset:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: 분단위
+          description: 디바이스와 UTC간의 차이
+        localDate:
+          type: string
+          format: date
+          readOnly: true
+          title: 사용자 타임존 기준, 실제 날짜
+        recognizedDate:
+          type: string
+          format: date
+          readOnly: true
+          title: 통계에서 사용되는 날짜
+          description: 04:00 기준, 인정되는 날짜
+      required:
+      - id
+      - localDate
+      - recognizedDate
+      - timezoneOffset
+    SpiritualDisciplineErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+    SpiritualDisciplineRequest:
+      type: object
+      properties:
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+      required:
+      - localDatetime
+    TermsOfService:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        version:
+          type: integer
+          readOnly: true
+        content:
+          type: string
+          title: 내용
+      required:
+      - content
+      - id
+      - version
+    TestimonyJournal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        content:
+          type: string
+          title: 내용
+      required:
+      - content
+      - id
+      - user
+    TestimonyJournalErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        content:
+          type: array
+          items:
+            type: string
+    TestimonyJournalRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          minLength: 1
+          title: 내용
+      required:
+      - content
+    User:
+      type: object
+      description: |-
+        http method: PUT, GET
+
+        : 유저의 "추가 정보"를 "수정"합니다.
+        - 이름/핸드폰번호: 수정 불가능
+        - 국적은 유저가 지역시간 재설정 할 때
+            >> 유저는 알지 못하지만 db저장할 때는 '지역시간'기준으로 국내/국외 구분해서 저장
+
+        조회 시에만 UserPushSettings 정보도 함께 반환
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        residence:
+          enum:
+          - domestic
+          - overseas
+          type: string
+          description: |-
+            * `domestic` - 국내
+            * `overseas` - 국외
+          x-spec-enum-id: 031bb779e3b26e78
+          title: 거주지
+          x-enumNames:
+          - 국내
+          - 국외
+        name:
+          type: string
+          readOnly: true
+          title: 이름
+          description: 최초 생성(설정) 이후 변경 불가능, 변경하고 싶다면 관리자페이지에서 직접 제어
+        phone:
+          type: string
+          readOnly: true
+          title: 휴대폰
+          description: 최초 생성(설정) 이후 변경 불가능, 변경하고 싶다면 관리자페이지에서 직접 제어
+        gender:
+          enum:
+          - female
+          - male
+          type: string
+          description: |-
+            * `male` - 남성
+            * `female` - 여성
+          x-spec-enum-id: 651e3c3f1d7fe2ec
+          title: 성별
+          x-enumNames:
+          - 여성
+          - 남성
+        birthDate:
+          type: string
+          title: 생년월일
+          description: YYYYMMDD 형식
+          maxLength: 8
+          minLength: 8
+        postalCode:
+          type: string
+          title: 우편번호
+          maxLength: 20
+        address:
+          type: string
+          title: 주소
+          maxLength: 200
+        addressDetail:
+          type: string
+          title: 상세주소
+          maxLength: 200
+        churchName:
+          type: string
+          title: 출석교회
+          maxLength: 100
+        weeklyFaithScore:
+          type: integer
+          readOnly: true
+          description: 주간 신앙 점수
+        userPushSettings:
+          allOf:
+          - $ref: '#/components/schemas/UserPushSettingsRead'
+          readOnly: true
+      required:
+      - birthDate
+      - id
+      - name
+      - phone
+      - userPushSettings
+      - weeklyFaithScore
+    UserEmailAuth:
+      type: object
+      description: |-
+        authentication I: email
+        ---
+        EmailVerificationSendSerializer 통해서 발송된 메일에 대해서
+        회원가입/로그인 해주는 api
+      properties:
+        isRegister:
+          type: boolean
+          readOnly: true
+          title: 인가 여부
+        accessToken:
+          type: string
+          readOnly: true
+        refreshToken:
+          type: string
+          readOnly: true
+      required:
+      - accessToken
+      - isRegister
+      - refreshToken
+    UserEmailAuthErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        email:
+          type: array
+          items:
+            type: string
+        code:
+          type: array
+          items:
+            type: string
+        device:
+          $ref: '#/components/schemas/DeviceValidationError'
+    UserEmailAuthRequest:
+      type: object
+      description: |-
+        authentication I: email
+        ---
+        EmailVerificationSendSerializer 통해서 발송된 메일에 대해서
+        회원가입/로그인 해주는 api
+      properties:
+        email:
+          type: string
+          format: email
+          writeOnly: true
+          minLength: 1
+        code:
+          type: string
+          writeOnly: true
+          minLength: 1
+        device:
+          allOf:
+          - $ref: '#/components/schemas/DeviceRequest'
+          writeOnly: true
+          nullable: true
+          description: 이전에 회원가입 했고, 새로운 device로 로그인한 경우를 위해 입력받음
+      required:
+      - code
+    UserErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        residence:
+          type: array
+          items:
+            type: string
+        gender:
+          type: array
+          items:
+            type: string
+        birthDate:
+          type: array
+          items:
+            type: string
+        postalCode:
+          type: array
+          items:
+            type: string
+        address:
+          type: array
+          items:
+            type: string
+        addressDetail:
+          type: array
+          items:
+            type: string
+        churchName:
+          type: array
+          items:
+            type: string
+    UserLogout:
+      type: object
+      properties:
+        uid:
+          type: string
+          description: 기기의 고유id
+    UserLogoutErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        uid:
+          type: array
+          items:
+            type: string
+    UserLogoutRequest:
+      type: object
+      properties:
+        uid:
+          type: string
+          minLength: 1
+          description: 기기의 고유id
+    UserPushSettings:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        isWeeklySummaryAlarmEnabled:
+          type: boolean
+          title: 통계 알림 여부
+        alarmTime:
+          type: string
+          format: time
+          readOnly: true
+          nullable: true
+          title: 오늘의 체크 알림 시간 (UTC)
+        timezoneOffset:
+          type: integer
+          readOnly: true
+          title: 분단위
+          description: 디바이스와 UTC간의 차이(reset할 때 해당 값만 변경)
+      required:
+      - alarmTime
+      - id
+      - timezoneOffset
+    UserPushSettingsErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        isWeeklySummaryAlarmEnabled:
+          type: array
+          items:
+            type: string
+        alarmLocalTime:
+          type: array
+          items:
+            type: string
+        resetLocalDatetime:
+          type: array
+          items:
+            type: string
+    UserPushSettingsRead:
+      type: object
+      description: |-
+        1. alarm_time 값이 있으면 '오늘의 체크 알림' on 해주시면 됩니다.
+        2. '오늘의 체크 알림'을 off하면 request에서 alarm_local_time에 null 넣고 request 해주시면 됩니다.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        isWeeklySummaryAlarmEnabled:
+          type: boolean
+          title: 통계 알림 여부
+        alarmTime:
+          type: string
+          format: time
+          nullable: true
+          title: 오늘의 체크 알림 시간 (UTC)
+        timezoneOffset:
+          type: integer
+          title: 분단위
+          description: 디바이스와 UTC간의 차이(reset할 때 해당 값만 변경)
+      required:
+      - id
+    UserPushSettingsReadRequest:
+      type: object
+      description: |-
+        1. alarm_time 값이 있으면 '오늘의 체크 알림' on 해주시면 됩니다.
+        2. '오늘의 체크 알림'을 off하면 request에서 alarm_local_time에 null 넣고 request 해주시면 됩니다.
+      properties:
+        isWeeklySummaryAlarmEnabled:
+          type: boolean
+          title: 통계 알림 여부
+        alarmTime:
+          type: string
+          format: time
+          nullable: true
+          title: 오늘의 체크 알림 시간 (UTC)
+        timezoneOffset:
+          type: integer
+          title: 분단위
+          description: 디바이스와 UTC간의 차이(reset할 때 해당 값만 변경)
+    UserPushSettingsRequest:
+      type: object
+      properties:
+        isWeeklySummaryAlarmEnabled:
+          type: boolean
+          title: 통계 알림 여부
+        alarmLocalTime:
+          type: string
+          format: time
+          writeOnly: true
+          nullable: true
+          title: 디바이스 기반 알림 받고 싶은 시간 (HH:MM:SS 형식)
+        resetLocalDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          nullable: true
+          description: 재설정 사용자 디바이스의 현재 시간 (ISO8601 형식)
+    UserRefresh:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+        accessToken:
+          type: string
+          readOnly: true
+      required:
+      - accessToken
+      - refreshToken
+    UserRefreshErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        refreshToken:
+          type: array
+          items:
+            type: string
+    UserRefreshRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          minLength: 1
+      required:
+      - refreshToken
+    UserRegister:
+      type: object
+      description: |-
+        authorization
+        : 최초의 유저 정보 입력 받기
+        : request(token) 통해서 유저 객체를 생성
+        : response( access_token, refresh_token) 알려주기
+        : 이때 device 도 같이 받음
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        socialKind:
+          enum:
+          - apple
+          - kakao
+          type: string
+          description: |-
+            * `kakao` - 카카오
+            * `apple` - 애플
+          x-spec-enum-id: cc0beeef6d5a8247
+          nullable: true
+          title: 소셜로그인 종류
+          x-enumNames:
+          - 애플
+          - 카카오
+        email:
+          type: string
+          format: email
+          description: 소셜일 때는 X, 이메일 회원가입 시에만 입력
+        residence:
+          enum:
+          - domestic
+          - overseas
+          type: string
+          description: |-
+            * `domestic` - 국내
+            * `overseas` - 국외
+          x-spec-enum-id: 031bb779e3b26e78
+          title: 거주지
+          x-enumNames:
+          - 국내
+          - 국외
+        name:
+          type: string
+          title: 이름
+          description: 최초 생성(설정) 이후 변경 불가능, 변경하고 싶다면 관리자페이지에서 직접 제어
+          maxLength: 50
+        phone:
+          type: string
+          title: 휴대폰
+          description: 최초 생성(설정) 이후 변경 불가능, 변경하고 싶다면 관리자페이지에서 직접 제어
+          maxLength: 11
+          minLength: 10
+        gender:
+          enum:
+          - female
+          - male
+          type: string
+          description: |-
+            * `male` - 남성
+            * `female` - 여성
+          x-spec-enum-id: 651e3c3f1d7fe2ec
+          title: 성별
+          x-enumNames:
+          - 여성
+          - 남성
+        birthDate:
+          type: string
+          title: 생년월일
+          description: YYYYMMDD 형식
+          maxLength: 8
+          minLength: 8
+        postalCode:
+          type: string
+          title: 우편번호
+          maxLength: 20
+        address:
+          type: string
+          title: 주소
+          maxLength: 200
+        addressDetail:
+          type: string
+          title: 상세주소
+          maxLength: 200
+        churchName:
+          type: string
+          title: 출석교회
+          maxLength: 100
+        accessToken:
+          type: string
+          readOnly: true
+        refreshToken:
+          type: string
+          readOnly: true
+      required:
+      - accessToken
+      - birthDate
+      - id
+      - name
+      - refreshToken
+    UserRegisterErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        socialKind:
+          type: array
+          items:
+            type: string
+        authToken:
+          type: array
+          items:
+            type: string
+        email:
+          type: array
+          items:
+            type: string
+        device:
+          $ref: '#/components/schemas/DeviceValidationError'
+        residence:
+          type: array
+          items:
+            type: string
+        name:
+          type: array
+          items:
+            type: string
+        phone:
+          type: array
+          items:
+            type: string
+        phoneToken:
+          type: array
+          items:
+            type: string
+        gender:
+          type: array
+          items:
+            type: string
+        birthDate:
+          type: array
+          items:
+            type: string
+        postalCode:
+          type: array
+          items:
+            type: string
+        address:
+          type: array
+          items:
+            type: string
+        addressDetail:
+          type: array
+          items:
+            type: string
+        churchName:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+    UserRegisterRequest:
+      type: object
+      description: |-
+        authorization
+        : 최초의 유저 정보 입력 받기
+        : request(token) 통해서 유저 객체를 생성
+        : response( access_token, refresh_token) 알려주기
+        : 이때 device 도 같이 받음
+      properties:
+        socialKind:
+          enum:
+          - apple
+          - kakao
+          type: string
+          description: |-
+            * `kakao` - 카카오
+            * `apple` - 애플
+          x-spec-enum-id: cc0beeef6d5a8247
+          nullable: true
+          title: 소셜로그인 종류
+          x-enumNames:
+          - 애플
+          - 카카오
+        authToken:
+          type: string
+          writeOnly: true
+          minLength: 1
+          description: (소셜/이메일)인가된 토큰
+        email:
+          type: string
+          format: email
+          minLength: 1
+          description: 소셜일 때는 X, 이메일 회원가입 시에만 입력
+        device:
+          allOf:
+          - $ref: '#/components/schemas/DeviceRequest'
+          writeOnly: true
+          nullable: true
+          description: 회원가입 시, device 정보
+        residence:
+          enum:
+          - domestic
+          - overseas
+          type: string
+          description: |-
+            * `domestic` - 국내
+            * `overseas` - 국외
+          x-spec-enum-id: 031bb779e3b26e78
+          title: 거주지
+          x-enumNames:
+          - 국내
+          - 국외
+        name:
+          type: string
+          minLength: 1
+          title: 이름
+          description: 최초 생성(설정) 이후 변경 불가능, 변경하고 싶다면 관리자페이지에서 직접 제어
+          maxLength: 50
+        phone:
+          type: string
+          title: 휴대폰
+          description: 최초 생성(설정) 이후 변경 불가능, 변경하고 싶다면 관리자페이지에서 직접 제어
+          maxLength: 11
+          minLength: 10
+        phoneToken:
+          type: string
+          writeOnly: true
+          minLength: 1
+          description: residence가 국내이면 필수값, 국외이면 null
+        gender:
+          enum:
+          - female
+          - male
+          type: string
+          description: |-
+            * `male` - 남성
+            * `female` - 여성
+          x-spec-enum-id: 651e3c3f1d7fe2ec
+          title: 성별
+          x-enumNames:
+          - 여성
+          - 남성
+        birthDate:
+          type: string
+          minLength: 8
+          title: 생년월일
+          description: YYYYMMDD 형식
+          maxLength: 8
+        postalCode:
+          type: string
+          title: 우편번호
+          maxLength: 20
+        address:
+          type: string
+          title: 주소
+          maxLength: 200
+        addressDetail:
+          type: string
+          title: 상세주소
+          maxLength: 200
+        churchName:
+          type: string
+          title: 출석교회
+          maxLength: 100
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+      required:
+      - authToken
+      - birthDate
+      - localDatetime
+      - name
+    UserRequest:
+      type: object
+      description: |-
+        http method: PUT, GET
+
+        : 유저의 "추가 정보"를 "수정"합니다.
+        - 이름/핸드폰번호: 수정 불가능
+        - 국적은 유저가 지역시간 재설정 할 때
+            >> 유저는 알지 못하지만 db저장할 때는 '지역시간'기준으로 국내/국외 구분해서 저장
+
+        조회 시에만 UserPushSettings 정보도 함께 반환
+      properties:
+        residence:
+          enum:
+          - domestic
+          - overseas
+          type: string
+          description: |-
+            * `domestic` - 국내
+            * `overseas` - 국외
+          x-spec-enum-id: 031bb779e3b26e78
+          title: 거주지
+          x-enumNames:
+          - 국내
+          - 국외
+        gender:
+          enum:
+          - female
+          - male
+          type: string
+          description: |-
+            * `male` - 남성
+            * `female` - 여성
+          x-spec-enum-id: 651e3c3f1d7fe2ec
+          title: 성별
+          x-enumNames:
+          - 여성
+          - 남성
+        birthDate:
+          type: string
+          minLength: 8
+          title: 생년월일
+          description: YYYYMMDD 형식
+          maxLength: 8
+        postalCode:
+          type: string
+          title: 우편번호
+          maxLength: 20
+        address:
+          type: string
+          title: 주소
+          maxLength: 200
+        addressDetail:
+          type: string
+          title: 상세주소
+          maxLength: 200
+        churchName:
+          type: string
+          title: 출석교회
+          maxLength: 100
+      required:
+      - birthDate
+    UserSocialAuth:
+      type: object
+      description: |-
+        authentication II
+        (response: token)
+      properties:
+        isRegister:
+          type: boolean
+          readOnly: true
+        accessToken:
+          type: string
+          readOnly: true
+        refreshToken:
+          type: string
+          readOnly: true
+      required:
+      - accessToken
+      - isRegister
+      - refreshToken
+    UserSocialAuthRequest:
+      type: object
+      description: |-
+        authentication II
+        (response: token)
+      properties:
+        code:
+          type: string
+          writeOnly: true
+          minLength: 1
+          title: 애플/카카오 모두 사용
+        state:
+          enum:
+          - apple
+          - kakao
+          type: string
+          description: |-
+            * `kakao` - 카카오
+            * `apple` - 애플
+          x-spec-enum-id: cc0beeef6d5a8247
+          writeOnly: true
+          x-enumNames:
+          - 애플
+          - 카카오
+        oauthAccessToken:
+          type: string
+          writeOnly: true
+          nullable: true
+          minLength: 1
+          title: 카카오 SDK일 때 사용
+        device:
+          allOf:
+          - $ref: '#/components/schemas/DeviceRequest'
+          writeOnly: true
+          nullable: true
+          description: 이전에 회원가입 했고, 새로운 device로 로그인한 경우를 위해 입력받음
+      required:
+      - state
+    UserSocialLoginValidationError:
+      type: object
+      properties:
+        socialToken:
+          type: string
+          title: 소셜 로그인 토큰
+        nonField:
+          type: array
+          items:
+            type: string
+        code:
+          type: array
+          items:
+            type: string
+        state:
+          type: array
+          items:
+            type: string
+    VerifierPhone:
+      type: object
+      properties:
+        phone:
+          type: string
+          title: 휴대폰번호
+          maxLength: 11
+          minLength: 10
+      required:
+      - phone
+    VerifierPhoneConfirm:
+      type: object
+      properties:
+        token:
+          type: string
+          readOnly: true
+      required:
+      - token
+    VerifierPhoneConfirmErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        phone:
+          type: array
+          items:
+            type: string
+        code:
+          type: array
+          items:
+            type: string
+    VerifierPhoneConfirmRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+          writeOnly: true
+          minLength: 1
+        code:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - code
+      - phone
+    VerifierPhoneErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        phone:
+          type: array
+          items:
+            type: string
+    VerifierPhoneRequest:
+      type: object
+      properties:
+        phone:
+          type: string
+          minLength: 10
+          title: 휴대폰번호
+          maxLength: 11
+      required:
+      - phone
+    WeeklyDailyDataItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 요일 ID (1-7)
+        day:
+          type: string
+          description: 요일명
+        dayDate:
+          type: string
+          description: 해당 일자 (YYYY-MM-DD)
+        value:
+          type: integer
+          description: '값 (기도: 분, 말씀: 장수, 죄와의싸움: 점수)'
+        isCompleted:
+          type: boolean
+          description: 완료 여부
+      required:
+      - day
+      - dayDate
+      - id
+      - isCompleted
+    WeeklyDashboardResponse:
+      type: object
+      properties:
+        date:
+          type: string
+          description: 조회 날짜 (YYYY-MM-DD)
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WeeklyResultItem'
+          description: 주별 결과 목록
+      required:
+      - date
+      - results
+    WeeklyMortificationOfSin:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+          title: 유저
+        slot:
+          enum:
+          - first
+          - second
+          type: string
+          description: |-
+            * `first` - 죄와의 싸움 1
+            * `second` - 죄와의 싸움 2
+          x-spec-enum-id: ce27b71160529a6e
+          title: 순서
+          x-enumNames:
+          - 죄와의 싸움 1
+          - 죄와의 싸움 2
+        practice:
+          type: string
+          title: 내용
+          maxLength: 500
+        weekStartSunday:
+          type: string
+          format: date
+          readOnly: true
+          title: 주 시작일 (일요일)
+          description: 해당 주의 일요일 날짜
+      required:
+      - id
+      - practice
+      - slot
+      - user
+      - weekStartSunday
+    WeeklyMortificationOfSinErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        slot:
+          type: array
+          items:
+            type: string
+        practice:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+    WeeklyMortificationOfSinRequest:
+      type: object
+      properties:
+        slot:
+          enum:
+          - first
+          - second
+          type: string
+          description: |-
+            * `first` - 죄와의 싸움 1
+            * `second` - 죄와의 싸움 2
+          x-spec-enum-id: ce27b71160529a6e
+          title: 순서
+          x-enumNames:
+          - 죄와의 싸움 1
+          - 죄와의 싸움 2
+        practice:
+          type: string
+          minLength: 1
+          title: 내용
+          maxLength: 500
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+      required:
+      - localDatetime
+      - practice
+      - slot
+    WeeklyResultItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 항목 ID (1-7)
+        name:
+          type: string
+          description: 항목명
+        average:
+          type: integer
+          description: 주간 평균값
+        practice:
+          type: string
+          description: 실천 내용
+        dailyData:
+          type: array
+          items:
+            $ref: '#/components/schemas/WeeklyDailyDataItem'
+          description: 일별 데이터 목록
+      required:
+      - dailyData
+      - id
+      - name
+    WeeklySpiritualDiscipline:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+          title: 유저
+        practice:
+          type: string
+          title: 내용
+          maxLength: 500
+        weekStartSunday:
+          type: string
+          format: date
+          readOnly: true
+          title: 주 시작일 (일요일)
+          description: 해당 주의 일요일 날짜
+      required:
+      - id
+      - practice
+      - user
+      - weekStartSunday
+    WeeklySpiritualDisciplineErrorMessage:
+      type: object
+      properties:
+        nonField:
+          type: array
+          items:
+            type: string
+        practice:
+          type: array
+          items:
+            type: string
+        localDatetime:
+          type: array
+          items:
+            type: string
+    WeeklySpiritualDisciplineRequest:
+      type: object
+      properties:
+        practice:
+          type: string
+          minLength: 1
+          title: 내용
+          maxLength: 500
+        localDatetime:
+          type: string
+          format: date-time
+          writeOnly: true
+          description: 사용자 디바이스의 현재 시간 (ISO8601 형식)
+      required:
+      - localDatetime
+      - practice
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      in: header
+      name: Authorization

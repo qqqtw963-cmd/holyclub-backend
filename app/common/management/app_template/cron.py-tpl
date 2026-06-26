@@ -1,0 +1,5 @@
+from app.common.views import CronView
+
+class {{ camel_case_app_name }}Cron(CronView):
+    def cron(self):
+        pass

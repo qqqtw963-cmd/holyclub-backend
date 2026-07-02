@@ -1,3 +1,5 @@
+from unittest.mock import Mock, patch
+
 from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -51,6 +53,29 @@ class UserLoginAPITest(APITestCase):
                 "password": ["인증정보가 일치하지 않습니다."],
             },
             response.data,
+        )
+
+
+class UserSocialAuthAPITest(APITestCase):
+    METHOD = "post"
+    PATH = "/v1/user/auth/social/"
+
+    @patch("app.user.social_adapters.requests.get")
+    def test_kakao_invalid_token_returns_validation_error(self, mock_get):
+        mock_get.return_value = Mock(ok=False, status_code=401, text='{"msg":"this access token does not exist","code":-401}')
+
+        response = getattr(self.client, self.METHOD)(
+            self.PATH,
+            data={"state": "kakao", "oauth_access_token": "invalid-token"},
+            format="json",
+        )
+
+        self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code)
+        self.assertDictEqual(
+            {
+                "non_field": ["카카오 로그인 토큰이 유효하지 않아요. 다시 로그인해 주세요."],
+            },
+            {key: [str(item) for item in value] for key, value in response.data.items()},
         )
 
 

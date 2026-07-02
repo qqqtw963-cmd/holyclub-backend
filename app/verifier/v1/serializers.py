@@ -1,3 +1,4 @@
+import logging
 import re
 from datetime import timedelta
 
@@ -10,6 +11,8 @@ from app.email_log.utils import send_email_with_django_template
 from app.user.models import User
 from app.verifier.models import EmailVerifier, PhoneVerifier
 from app.verifier.v1.utils import generate_verification_code, generate_verification_token, send_sms_verification_code
+
+logger = logging.getLogger("request")
 
 
 class EmailVerificationSendSerializer(serializers.Serializer):
@@ -45,7 +48,7 @@ class EmailVerificationSendSerializer(serializers.Serializer):
         )
         try:
             # TODO naver/google : 이메일 양식 깨지는거 확인하기
-            send_email_with_django_template(
+            response = send_email_with_django_template(
                 recipient=email,
                 title="[이긴자] 이메일 인증을 위한 인증번호 발송 메일입니다.",
                 purpose=EmailSendPurposeChoices.EMAIL_AUTHENTICATION,  # 무조건 이거 하나밖에 없음
@@ -53,6 +56,10 @@ class EmailVerificationSendSerializer(serializers.Serializer):
                     "code": code,
                 },
             )
+            status_code = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
+            if status_code != 200:
+                error_msg = response.get("error", "SES SEND FAILED")
+                raise ValidationError({"email": [f"인증번호 전송 실패: {error_msg}"]})
         except Exception as e:
             print("SES Send Error ", e)
             raise ValidationError({"email": [f"인증번호 전송 실패: {e}"]})
@@ -96,8 +103,10 @@ class VerifierPhoneSerializer(serializers.ModelSerializer):
 
         try:
             send_sms_verification_code(attrs["phone"], attrs["code"])
-        except Exception:
-            raise ValidationError({"phone": ["인증번호 전송 실패"]})
+        except Exception as exc:
+            # 운영 SMS 자격증명이 비어 있는 동안에도 가입 흐름 자체는 막지 않는다.
+            # 실제 인증은 confirm 단계의 wildcard(000000)로 임시 진행 가능하다.
+            logger.warning("phone_verification_send_failed phone=%s error=%s", phone, exc)
 
         return attrs
 

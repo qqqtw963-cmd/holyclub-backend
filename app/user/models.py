@@ -75,7 +75,7 @@ class ResidenceType(models.TextChoices):
 class SocialKind(models.TextChoices):
     KAKAO = "kakao", "카카오"
     APPLE = "apple", "애플"
-    # GOOGLE = "google", "구글"
+    GOOGLE = "google", "구글"
 
 
 class User(BaseUser):

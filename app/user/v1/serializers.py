@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import logging
 
 import jwt
 from django.conf import settings
@@ -22,6 +23,8 @@ from app.user.social_adapters import SocialAdapter
 from app.user.v1.nested_serializers import DeviceSerializer, UserPushSettingsReadSerializer
 from app.user.validators import validate_phone_number_length
 from app.verifier.models import EmailVerifier, PhoneVerifier
+
+logger = logging.getLogger("request")
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -313,7 +316,7 @@ class UserSocialAuthSerializer(serializers.Serializer):
     # request
     code = serializers.CharField(required=False, write_only=True, label="애플/카카오 모두 사용")
     state = serializers.ChoiceField(write_only=True, choices=SocialKind.choices)
-    oauth_access_token = serializers.CharField(required=False, write_only=True, allow_null=True, label="카카오 SDK일 때 사용")
+    oauth_access_token = serializers.CharField(required=False, write_only=True, allow_null=True, label="카카오 access token 또는 Apple/Google id token")
 
     device = DeviceSerializer(
         required=False,
@@ -331,18 +334,24 @@ class UserSocialAuthSerializer(serializers.Serializer):
     def validate(self, attrs):
         state = attrs["state"]
         oauth_access_token = attrs.get("oauth_access_token")
+        trace_id = self.context["request"].META.get("HTTP_X_TRACE_ID") or getattr(self.context["request"], "trace_id", "no-trace")
+
+        logger.info("social_auth validate start trace=%s state=%s has_oauth_token=%s", trace_id, state, bool(oauth_access_token))
 
         if oauth_access_token:
             code = None
         else:
             code = attrs.get("code")
 
+        logger.info("social_auth before get_social_user_id trace=%s state=%s", trace_id, state)
         social_user_id = self.get_social_user_id(code, oauth_access_token, state)
+        logger.info("social_auth after get_social_user_id trace=%s state=%s social_user_id=%s", trace_id, state, social_user_id)
         social_email = f"{social_user_id}@{state}.social"
 
         try:
             attrs["user"] = User.objects.get(email=social_email)
             attrs["is_register"] = True
+            logger.info("social_auth existing_user trace=%s state=%s email=%s", trace_id, state, social_email)
         except User.DoesNotExist:
             attrs["oauth_access_token"] = jwt.encode(
                 payload={
@@ -352,34 +361,38 @@ class UserSocialAuthSerializer(serializers.Serializer):
                 key=settings.SECRET_KEY,
             )
             attrs["is_register"] = False
+            logger.info("social_auth new_user trace=%s state=%s email=%s", trace_id, state, social_email)
 
         return attrs
 
     @transaction.atomic
     def create(self, validated_data):
-        if not validated_data.pop("is_register"):
-            # is_register는 none일 수 없음
+        trace_id = self.context["request"].META.get("HTTP_X_TRACE_ID") or getattr(self.context["request"], "trace_id", "no-trace")
+        is_register = validated_data.pop("is_register")
+        logger.info("social_auth create start trace=%s is_register=%s has_device=%s", trace_id, is_register, bool(validated_data.get("device")))
+
+        if not is_register:
             validated_data["access_token"] = validated_data.pop("oauth_access_token", None)
             validated_data["refresh_token"] = None
+            logger.info("social_auth create return_signup_token trace=%s", trace_id)
             return validated_data
 
-        # ---- 가입된 유저 ----
-        # JWT 발급
         user = validated_data["user"]
+        logger.info("social_auth before jwt trace=%s user_id=%s", trace_id, user.id)
         refresh = user.get_token()
+        logger.info("social_auth after jwt trace=%s user_id=%s", trace_id, user.id)
         validated_data["access_token"] = refresh.access_token
         validated_data["refresh_token"] = refresh
 
-        # device 정보 업데이트
         if validated_data.get("device"):
+            logger.info("social_auth before connect_device trace=%s user_id=%s", trace_id, user.id)
             user.connect_device(**validated_data["device"])
+            logger.info("social_auth after connect_device trace=%s user_id=%s", trace_id, user.id)
 
+        logger.info("social_auth create done trace=%s user_id=%s", trace_id, user.id)
         return validated_data
 
     def get_social_user_id(self, code, oauth_access_token, state):
-        if oauth_access_token and state == SocialKind.KAKAO:
-            self.access_token = oauth_access_token
-
         for adapter_class in SocialAdapter.__subclasses__():
             if adapter_class.key == state:
                 origin = self.context["request"].META.get("HTTP_ORIGIN", "")

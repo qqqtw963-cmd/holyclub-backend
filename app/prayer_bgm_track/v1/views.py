@@ -25,7 +25,7 @@ class PrayerBgmTrackViewSet(
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset
+        return queryset.filter(is_active=True)
 
 
 @extend_schema_view(

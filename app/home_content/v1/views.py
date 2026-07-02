@@ -1,4 +1,4 @@
-from django.db import OperationalError, ProgrammingError
+from django.db import DatabaseError
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import mixins
 from rest_framework.decorators import action
@@ -39,7 +39,7 @@ class HomeContentViewSet(mixins.ListModelMixin, GenericViewSet):
     def current(self, request, *args, **kwargs):
         try:
             current_content = self.get_queryset().filter(is_active=True).first() or self.get_queryset().first()
-        except (ProgrammingError, OperationalError):
+        except DatabaseError:
             return Response(self._get_default_payload())
 
         if current_content is None:

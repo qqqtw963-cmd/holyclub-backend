@@ -18,6 +18,11 @@ ALLOWED_HOSTS = [
     f"api.{DOMAIN}",
     f"admin.{DOMAIN}",
 ]
+EXTRA_ALLOWED_HOSTS = os.environ.get("EXTRA_ALLOWED_HOSTS", "")
+if EXTRA_ALLOWED_HOSTS:
+    ALLOWED_HOSTS.extend(
+        [host.strip() for host in EXTRA_ALLOWED_HOSTS.split(",") if host.strip()]
+    )
 METADATA_URI = os.environ.get("ECS_CONTAINER_METADATA_URI")
 if METADATA_URI:
     try:
@@ -27,7 +32,10 @@ if METADATA_URI:
     except Exception as e:
         print(e, "no ec2 instance")
 
-CSRF_TRUSTED_ORIGINS = [f"https://admin.{DOMAIN}"]
+CSRF_TRUSTED_ORIGINS = [
+    f"https://admin.{DOMAIN}",
+    f"https://api.{DOMAIN}",
+]
 # # API 경로는 CSRF 검증 제외
 # CSRF_EXEMPT_LIST = [
 #     r"^/v1/",  # v1으로 시작하는 모든 API 경로

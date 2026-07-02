@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import firebase_admin
@@ -15,7 +16,7 @@ load_dotenv(BASE_DIR / ".env")
 PROJECT_NAME = "holyclub"
 SITE_NAME = "holyclub"
 SITE_LOGO = "img/logo.png"  # TODO: HolyClub branding asset로 교체
-DOMAIN = "holyclub.app"
+DOMAIN = os.environ.get("DOMAIN", "holyclub.co.kr")
 
 
 class Response(wsgi.Response):
@@ -39,6 +40,7 @@ LOCAL_APPS = [
     "app.device.apps.DeviceConfig",
     "app.email_log.apps.EmailLogConfig",
     "app.groups.apps.GroupsConfig",
+    "app.home_content.apps.HomeContentConfig",
     "app.inquiry.apps.InquiryConfig",
     "app.mortification_of_sin.apps.MortificationOfSinConfig",
     "app.notification.apps.NotificationConfig",
@@ -280,9 +282,18 @@ COOLSMS_API_SECRET = get_secret(f"{PROJECT_NAME}/key")["coolsms_api_secret"]
 COOLSMS_FROM_PHONE = "010-7509-7734"
 
 # FIREBASE
-FIREBASE_CREDENTIAL_JSON = get_secret(f"{PROJECT_NAME}/firebase")
-cred = credentials.Certificate(FIREBASE_CREDENTIAL_JSON)
-firebase_admin.initialize_app(cred)
+FIREBASE_ENABLED = False
+FIREBASE_INIT_ERROR = None
+try:
+    FIREBASE_CREDENTIAL_JSON = get_secret(f"{PROJECT_NAME}/firebase")
+    cred = credentials.Certificate(FIREBASE_CREDENTIAL_JSON)
+    if not firebase_admin._apps:
+        firebase_admin.initialize_app(cred)
+    FIREBASE_ENABLED = True
+except Exception as e:
+    FIREBASE_CREDENTIAL_JSON = None
+    FIREBASE_INIT_ERROR = str(e)
+    print(f"[WARN] Firebase disabled during settings load: {e}")
 
 
 # CKEDITOR
@@ -324,9 +335,12 @@ KAKAO_CLIENT_SECRET = get_secret(f"{PROJECT_NAME}/key")["kakao_client_secret"]
 KAKAO_LOGIN_URL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={kakao_client_id}&redirect_uri={SOCIAL_REDIRECT_URL}&state=kakao"
 
 # APPLE
-APPLE_CLIENT_ID = "auth.holyclub.app"  # TODO: HolyClub Apple Service ID로 교체
-APPLE_APP_ID = "app.holyclub.mobile"  # TODO: HolyClub Apple Bundle ID로 교체
+APPLE_CLIENT_ID = "auth.holyclub.app"  # HolyClub Apple Service ID (웹/코드 교환용)
+APPLE_APP_ID = "com.parkseongjeon.holyclub"  # HolyClub iOS bundle ID (native Sign in with Apple)
 APPLE_CLIENT_SECRET = get_secret(f"{PROJECT_NAME}/key")["apple_client_secret"]
 APPLE_KEY_ID = get_secret(f"{PROJECT_NAME}/key")["apple_key_id"]
 APPLE_TEAM_ID = get_secret(f"{PROJECT_NAME}/key")["apple_team_id"]
 APPLE_LOGIN_URL = "https://appleid.apple.com/auth/authorize?response_type=code&client_id={apple_client_id}&redirect_uri={SOCIAL_REDIRECT_URL}&state=apple"
+
+# GOOGLE
+GOOGLE_CLIENT_IDS = [client_id.strip() for client_id in os.getenv("GOOGLE_CLIENT_IDS", "").split(",") if client_id.strip()]

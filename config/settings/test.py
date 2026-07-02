@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -5,7 +6,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent.parent
 PROJECT_NAME = "holyclub"
 SITE_NAME = "holyclub"
 SITE_LOGO = "img/logo.png"
-DOMAIN = "holyclub.app"
+DOMAIN = os.environ.get("DOMAIN", "holyclub.co.kr")
 SECRET_KEY = "test-secret-key"
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
@@ -44,6 +45,7 @@ LOCAL_APPS = [
     "app.device.apps.DeviceConfig",
     "app.email_log.apps.EmailLogConfig",
     "app.groups.apps.GroupsConfig",
+    "app.home_content.apps.HomeContentConfig",
     "app.inquiry.apps.InquiryConfig",
     "app.mortification_of_sin.apps.MortificationOfSinConfig",
     "app.notification.apps.NotificationConfig",

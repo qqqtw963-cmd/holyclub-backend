@@ -1,6 +1,6 @@
-FROM python:3.9-slim-bullseye
+FROM python:3.9-slim-bookworm
 
-RUN apt-get update && apt-get install gcc libcurl4-openssl-dev libssl-dev -y && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y gcc libcurl4-openssl-dev libssl-dev libpq-dev && rm -rf /var/lib/apt/lists/*
 RUN pip install --no-cache-dir --upgrade pip
 RUN mkdir /app
 WORKDIR /app
@@ -16,4 +16,4 @@ ENV PYTHONUNBUFFERED=1
 
 RUN if [ -n "$CI" ]; then python manage.py cron --settings=config.settings.$APP_ENV; fi
 
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "--config", "gunicorn.conf.py"]

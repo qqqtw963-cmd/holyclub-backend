@@ -10,6 +10,7 @@ urlpatterns = [
     path("v1/", include("app.daily_check_status.v1.urls")),
     path("v1/", include("app.dash_board.v1.urls")),
     path("v1/", include("app.groups.v1.urls")),
+    path("v1/", include("app.home_content.v1.urls")),
     path("v1/", include("app.inquiry.v1.urls")),
     path("v1/", include("app.mortification_of_sin.v1.urls")),
     path("v1/", include("app.notification.v1.urls")),

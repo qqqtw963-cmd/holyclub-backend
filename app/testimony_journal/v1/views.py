@@ -26,7 +26,7 @@ class TestimonyJournalViewSet(
     mixins.DestroyModelMixin,
     GenericViewSet,
 ):
-    queryset = TestimonyJournal.objects.all()
+    queryset = TestimonyJournal.objects.select_related("bible_reference", "bible_reference__book").all()
     serializer_class = TestimonyJournalSerializer
     permission_classes = [TestimonyJournalPermission]
     pagination_class = LimitOffsetPagination
@@ -37,5 +37,4 @@ class TestimonyJournalViewSet(
         queryset = super().get_queryset()
         request_user = validate_view_request_user(self.request)
         queryset = queryset.filter(user=request_user)
-        # todo 작성자만 조회할 수 있도록
         return queryset

@@ -68,6 +68,9 @@ class CustomAutoSchema(AutoSchema):
         )
 
     def _get_fields(self, serializer):
+        if isinstance(serializer, type) and issubclass(serializer, serializers.BaseSerializer):
+            serializer = serializer()
+
         fields = {}
         for name, field in serializer.get_fields().items():
             if field.read_only:
